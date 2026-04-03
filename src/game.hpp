@@ -24,6 +24,11 @@ private:
 		Exiting
 	};
 
+	enum class IntroSequenceMode {
+		Startup,
+		ReplayDiabloOnly
+	};
+
 	bool HandleInput(bool& isRunning);
 	void EnterState(State nextState);
 	void UpdateIntroState(double dt);
@@ -47,6 +52,7 @@ private:
 	bool menuButtonFontLoaded_;
 	libSmackker smackker_;
 	State state_;
+	IntroSequenceMode introSequenceMode_;
 	double stateTimeSeconds_;
 	double titlePresentationTimeSeconds_;
 	bool introDone_;

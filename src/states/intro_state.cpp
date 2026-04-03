@@ -87,6 +87,27 @@ bool LoadTitleScreen(
 void Game::UpdateIntroState(double dt)
 {
 	if (!introDone_) {
+		if (introSequenceMode_ == IntroSequenceMode::ReplayDiabloOnly) {
+			SDL_Renderer* renderer = video_.GetRenderer();
+			if (renderer == nullptr) {
+				EnterState(State::Exiting);
+				return;
+			}
+
+			const libSmackker::PlaybackResult replayResult =
+				smackker_.PlayWithControl(mpq_, "gendata\\diablo1.smk", true, renderer);
+			if (replayResult == libSmackker::PlaybackResult::Quit || replayResult == libSmackker::PlaybackResult::Error) {
+				EnterState(State::Exiting);
+				return;
+			}
+
+			introDone_ = true;
+			introSequenceMode_ = IntroSequenceMode::Startup;
+			EnterState(State::MainMenu);
+			resetFrameTimer_ = true;
+			return;
+		}
+
 		if (!PlayIntroSequence(smackker_, mpq_, video_)) {
 			EnterState(State::Exiting);
 			return;

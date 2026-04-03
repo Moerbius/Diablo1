@@ -19,6 +19,7 @@ constexpr double kTitleScreenDurationSeconds = 5.0;
 constexpr double kRectSpeedX = 280.0;
 constexpr double kRectSpeedY = 190.0;
 constexpr int kMainMenuItemCount = 5;
+constexpr int kReplayIntroMenuIndex = 2;
 constexpr int kExitDiabloMenuIndex = 4;
 
 const char* GetMainMenuItemName(int index)
@@ -49,6 +50,7 @@ bool Game::Init()
 	rectVelocityX_ = kRectSpeedX;
 	rectVelocityY_ = kRectSpeedY;
 	state_ = State::Intro;
+	introSequenceMode_ = IntroSequenceMode::Startup;
 	stateTimeSeconds_ = 0.0;
 	titlePresentationTimeSeconds_ = 0.0;
 	introDone_ = false;
@@ -175,7 +177,10 @@ bool Game::HandleInput(bool& isRunning)
 					}
 					std::fprintf(stdout, "Selected menu item: %s\n", GetMainMenuItemName(mainMenuSelectionIndex_));
 					std::fflush(stdout);
-					if (mainMenuSelectionIndex_ == kExitDiabloMenuIndex) {
+					if (mainMenuSelectionIndex_ == kReplayIntroMenuIndex) {
+						introSequenceMode_ = IntroSequenceMode::ReplayDiabloOnly;
+						EnterState(State::Intro);
+					} else if (mainMenuSelectionIndex_ == kExitDiabloMenuIndex) {
 						EnterState(State::Exiting);
 						isRunning = false;
 					}
@@ -202,12 +207,17 @@ void Game::EnterState(State nextState)
 		rectY_ = (windowHeight_ - rectSize_) / 2.0;
 		logoAnimationTime_ = 0.0;
 		currentLogoFrame_ = 0;
+		introDone_ = false;
 		titlePresentationActive_ = false;
 	}
 
 	if (state_ == State::MainMenu) {
+		bool needsMusic = !titlePresentationActive_;
 		titlePresentationActive_ = false;
 		mainMenuSelectionIndex_ = std::clamp(mainMenuSelectionIndex_, 0, kMainMenuItemCount - 1);
+		if (needsMusic) {
+			menuMusic_.PlayMusic(true);
+		}
 	}
 }
 

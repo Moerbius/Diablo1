@@ -116,7 +116,8 @@ libSmackker::PlaybackResult libSmackker::PlayWithControl(StormLib& mpq, const st
 				quitRequested = true;
 				running = false;
 			} else if (allowSkip && event.type == SDL_EVENT_KEY_DOWN) {
-				if (event.key.key == SDLK_RETURN || event.key.key == SDLK_SPACE) {
+				if (event.key.key == SDLK_SPACE || event.key.key == SDLK_RETURN || 
+				    event.key.key == SDLK_KP_ENTER || event.key.key == SDLK_ESCAPE) {
 					skipped = true;
 					running = false;
 				}
