@@ -9,7 +9,7 @@
 #include <vector>
 
 namespace {
-constexpr bool kPreserveTitleAspectRatio = false;
+constexpr bool kPreserveTitleAspectRatio = true;
 constexpr int kLogoOffsetYNative = 48;
 constexpr double kTitleScreenDurationSeconds = 5.0;
 
@@ -40,6 +40,7 @@ bool LoadTitleScreen(
 	std::vector<std::uint32_t>& titleImage,
 	std::vector<std::uint32_t>& logoImage,
 	std::vector<std::uint32_t>& mainMenuImage,
+	std::vector<std::uint32_t>& selheroImage,
 	std::vector<std::uint32_t>& focus42Image,
 	int& titleWidth,
 	int& titleHeight,
@@ -47,12 +48,15 @@ bool LoadTitleScreen(
 	int& logoHeight,
 	int& mainMenuWidth,
 	int& mainMenuHeight,
+	int& selheroWidth,
+	int& selheroHeight,
 	int& focus42Width,
 	int& focus42Height)
 {
 	PCXImage titlePcx = PCX::LoadFromMPQ(mpq, "ui_art\\title.pcx");
 	PCXImage logoPcx = PCX::LoadFromMPQ(mpq, "ui_art\\logo.pcx");
 	PCXImage mainMenuPcx = PCX::LoadFromMPQ(mpq, "ui_art\\mainmenu.pcx");
+	PCXImage selheropcx = PCX::LoadFromMPQ(mpq, "ui_art\\selhero.pcx");
 	PCXImage focus42Pcx = PCX::LoadFromMPQ(mpq, "ui_art\\focus42.pcx");
 
 	if (titlePcx.pixels.empty() || logoPcx.pixels.empty() || mainMenuPcx.pixels.empty()) {
@@ -69,6 +73,16 @@ bool LoadTitleScreen(
 	titleImage = PCX::ConvertToRGBA32(titlePcx);
 	logoImage = PCX::ConvertToRGBA32(logoPcx);
 	mainMenuImage = PCX::ConvertToRGBA32(mainMenuPcx);
+
+	if (!selheropcx.pixels.empty() && selheropcx.width > 0 && selheropcx.height > 0) {
+		selheroWidth = static_cast<int>(selheropcx.width);
+		selheroHeight = static_cast<int>(selheropcx.height);
+		selheroImage = PCX::ConvertToRGBA32(selheropcx);
+	} else {
+		selheroWidth = 0;
+		selheroHeight = 0;
+		selheroImage.clear();
+	}
 
 	if (!focus42Pcx.pixels.empty() && focus42Pcx.width > 0 && focus42Pcx.height > 0) {
 		focus42Width = static_cast<int>(focus42Pcx.width);
@@ -119,6 +133,7 @@ void Game::UpdateIntroState(double dt)
 				titleImage_,
 				logoImage_,
 				mainMenuImage_,
+				selheroImage_,
 				focus42Image_,
 				titleWidth_,
 				titleHeight_,
@@ -126,6 +141,8 @@ void Game::UpdateIntroState(double dt)
 				logoHeight_,
 				mainMenuWidth_,
 				mainMenuHeight_,
+				selheroWidth_,
+				selheroHeight_,
 				focus42Width_,
 				focus42Height_)) {
 			EnterState(State::Exiting);

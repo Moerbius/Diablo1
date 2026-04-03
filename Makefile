@@ -129,6 +129,102 @@ diablo1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/build
 .PHONY : diablo1/fast
 
+src/audio/music.o: src/audio/music.cpp.o
+.PHONY : src/audio/music.o
+
+# target to build an object file
+src/audio/music.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/music.cpp.o
+.PHONY : src/audio/music.cpp.o
+
+src/audio/music.i: src/audio/music.cpp.i
+.PHONY : src/audio/music.i
+
+# target to preprocess a source file
+src/audio/music.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/music.cpp.i
+.PHONY : src/audio/music.cpp.i
+
+src/audio/music.s: src/audio/music.cpp.s
+.PHONY : src/audio/music.s
+
+# target to generate assembly for a file
+src/audio/music.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/music.cpp.s
+.PHONY : src/audio/music.cpp.s
+
+src/audio/sfx.o: src/audio/sfx.cpp.o
+.PHONY : src/audio/sfx.o
+
+# target to build an object file
+src/audio/sfx.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/sfx.cpp.o
+.PHONY : src/audio/sfx.cpp.o
+
+src/audio/sfx.i: src/audio/sfx.cpp.i
+.PHONY : src/audio/sfx.i
+
+# target to preprocess a source file
+src/audio/sfx.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/sfx.cpp.i
+.PHONY : src/audio/sfx.cpp.i
+
+src/audio/sfx.s: src/audio/sfx.cpp.s
+.PHONY : src/audio/sfx.s
+
+# target to generate assembly for a file
+src/audio/sfx.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/sfx.cpp.s
+.PHONY : src/audio/sfx.cpp.s
+
+src/font.o: src/font.cpp.o
+.PHONY : src/font.o
+
+# target to build an object file
+src/font.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/font.cpp.o
+.PHONY : src/font.cpp.o
+
+src/font.i: src/font.cpp.i
+.PHONY : src/font.i
+
+# target to preprocess a source file
+src/font.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/font.cpp.i
+.PHONY : src/font.cpp.i
+
+src/font.s: src/font.cpp.s
+.PHONY : src/font.s
+
+# target to generate assembly for a file
+src/font.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/font.cpp.s
+.PHONY : src/font.cpp.s
+
+src/game.o: src/game.cpp.o
+.PHONY : src/game.o
+
+# target to build an object file
+src/game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/game.cpp.o
+.PHONY : src/game.cpp.o
+
+src/game.i: src/game.cpp.i
+.PHONY : src/game.i
+
+# target to preprocess a source file
+src/game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/game.cpp.i
+.PHONY : src/game.cpp.i
+
+src/game.s: src/game.cpp.s
+.PHONY : src/game.s
+
+# target to generate assembly for a file
+src/game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/game.cpp.s
+.PHONY : src/game.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -153,6 +249,342 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/pcx.o: src/pcx.cpp.o
+.PHONY : src/pcx.o
+
+# target to build an object file
+src/pcx.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/pcx.cpp.o
+.PHONY : src/pcx.cpp.o
+
+src/pcx.i: src/pcx.cpp.i
+.PHONY : src/pcx.i
+
+# target to preprocess a source file
+src/pcx.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/pcx.cpp.i
+.PHONY : src/pcx.cpp.i
+
+src/pcx.s: src/pcx.cpp.s
+.PHONY : src/pcx.s
+
+# target to generate assembly for a file
+src/pcx.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/pcx.cpp.s
+.PHONY : src/pcx.cpp.s
+
+src/smacker/libsmackerdec/BitReader.o: src/smacker/libsmackerdec/BitReader.cpp.o
+.PHONY : src/smacker/libsmackerdec/BitReader.o
+
+# target to build an object file
+src/smacker/libsmackerdec/BitReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/BitReader.cpp.o
+.PHONY : src/smacker/libsmackerdec/BitReader.cpp.o
+
+src/smacker/libsmackerdec/BitReader.i: src/smacker/libsmackerdec/BitReader.cpp.i
+.PHONY : src/smacker/libsmackerdec/BitReader.i
+
+# target to preprocess a source file
+src/smacker/libsmackerdec/BitReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/BitReader.cpp.i
+.PHONY : src/smacker/libsmackerdec/BitReader.cpp.i
+
+src/smacker/libsmackerdec/BitReader.s: src/smacker/libsmackerdec/BitReader.cpp.s
+.PHONY : src/smacker/libsmackerdec/BitReader.s
+
+# target to generate assembly for a file
+src/smacker/libsmackerdec/BitReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/BitReader.cpp.s
+.PHONY : src/smacker/libsmackerdec/BitReader.cpp.s
+
+src/smacker/libsmackerdec/FileStream.o: src/smacker/libsmackerdec/FileStream.cpp.o
+.PHONY : src/smacker/libsmackerdec/FileStream.o
+
+# target to build an object file
+src/smacker/libsmackerdec/FileStream.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/FileStream.cpp.o
+.PHONY : src/smacker/libsmackerdec/FileStream.cpp.o
+
+src/smacker/libsmackerdec/FileStream.i: src/smacker/libsmackerdec/FileStream.cpp.i
+.PHONY : src/smacker/libsmackerdec/FileStream.i
+
+# target to preprocess a source file
+src/smacker/libsmackerdec/FileStream.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/FileStream.cpp.i
+.PHONY : src/smacker/libsmackerdec/FileStream.cpp.i
+
+src/smacker/libsmackerdec/FileStream.s: src/smacker/libsmackerdec/FileStream.cpp.s
+.PHONY : src/smacker/libsmackerdec/FileStream.s
+
+# target to generate assembly for a file
+src/smacker/libsmackerdec/FileStream.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/FileStream.cpp.s
+.PHONY : src/smacker/libsmackerdec/FileStream.cpp.s
+
+src/smacker/libsmackerdec/LogError.o: src/smacker/libsmackerdec/LogError.cpp.o
+.PHONY : src/smacker/libsmackerdec/LogError.o
+
+# target to build an object file
+src/smacker/libsmackerdec/LogError.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/LogError.cpp.o
+.PHONY : src/smacker/libsmackerdec/LogError.cpp.o
+
+src/smacker/libsmackerdec/LogError.i: src/smacker/libsmackerdec/LogError.cpp.i
+.PHONY : src/smacker/libsmackerdec/LogError.i
+
+# target to preprocess a source file
+src/smacker/libsmackerdec/LogError.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/LogError.cpp.i
+.PHONY : src/smacker/libsmackerdec/LogError.cpp.i
+
+src/smacker/libsmackerdec/LogError.s: src/smacker/libsmackerdec/LogError.cpp.s
+.PHONY : src/smacker/libsmackerdec/LogError.s
+
+# target to generate assembly for a file
+src/smacker/libsmackerdec/LogError.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/LogError.cpp.s
+.PHONY : src/smacker/libsmackerdec/LogError.cpp.s
+
+src/smacker/libsmackerdec/SmackerDecoder.o: src/smacker/libsmackerdec/SmackerDecoder.cpp.o
+.PHONY : src/smacker/libsmackerdec/SmackerDecoder.o
+
+# target to build an object file
+src/smacker/libsmackerdec/SmackerDecoder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/SmackerDecoder.cpp.o
+.PHONY : src/smacker/libsmackerdec/SmackerDecoder.cpp.o
+
+src/smacker/libsmackerdec/SmackerDecoder.i: src/smacker/libsmackerdec/SmackerDecoder.cpp.i
+.PHONY : src/smacker/libsmackerdec/SmackerDecoder.i
+
+# target to preprocess a source file
+src/smacker/libsmackerdec/SmackerDecoder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/SmackerDecoder.cpp.i
+.PHONY : src/smacker/libsmackerdec/SmackerDecoder.cpp.i
+
+src/smacker/libsmackerdec/SmackerDecoder.s: src/smacker/libsmackerdec/SmackerDecoder.cpp.s
+.PHONY : src/smacker/libsmackerdec/SmackerDecoder.s
+
+# target to generate assembly for a file
+src/smacker/libsmackerdec/SmackerDecoder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackerdec/SmackerDecoder.cpp.s
+.PHONY : src/smacker/libsmackerdec/SmackerDecoder.cpp.s
+
+src/smacker/libsmackker.o: src/smacker/libsmackker.cpp.o
+.PHONY : src/smacker/libsmackker.o
+
+# target to build an object file
+src/smacker/libsmackker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackker.cpp.o
+.PHONY : src/smacker/libsmackker.cpp.o
+
+src/smacker/libsmackker.i: src/smacker/libsmackker.cpp.i
+.PHONY : src/smacker/libsmackker.i
+
+# target to preprocess a source file
+src/smacker/libsmackker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackker.cpp.i
+.PHONY : src/smacker/libsmackker.cpp.i
+
+src/smacker/libsmackker.s: src/smacker/libsmackker.cpp.s
+.PHONY : src/smacker/libsmackker.s
+
+# target to generate assembly for a file
+src/smacker/libsmackker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/libsmackker.cpp.s
+.PHONY : src/smacker/libsmackker.cpp.s
+
+src/smacker/pklib/explode.o: src/smacker/pklib/explode.c.o
+.PHONY : src/smacker/pklib/explode.o
+
+# target to build an object file
+src/smacker/pklib/explode.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/pklib/explode.c.o
+.PHONY : src/smacker/pklib/explode.c.o
+
+src/smacker/pklib/explode.i: src/smacker/pklib/explode.c.i
+.PHONY : src/smacker/pklib/explode.i
+
+# target to preprocess a source file
+src/smacker/pklib/explode.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/pklib/explode.c.i
+.PHONY : src/smacker/pklib/explode.c.i
+
+src/smacker/pklib/explode.s: src/smacker/pklib/explode.c.s
+.PHONY : src/smacker/pklib/explode.s
+
+# target to generate assembly for a file
+src/smacker/pklib/explode.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/smacker/pklib/explode.c.s
+.PHONY : src/smacker/pklib/explode.c.s
+
+src/states/intro_state.o: src/states/intro_state.cpp.o
+.PHONY : src/states/intro_state.o
+
+# target to build an object file
+src/states/intro_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/intro_state.cpp.o
+.PHONY : src/states/intro_state.cpp.o
+
+src/states/intro_state.i: src/states/intro_state.cpp.i
+.PHONY : src/states/intro_state.i
+
+# target to preprocess a source file
+src/states/intro_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/intro_state.cpp.i
+.PHONY : src/states/intro_state.cpp.i
+
+src/states/intro_state.s: src/states/intro_state.cpp.s
+.PHONY : src/states/intro_state.s
+
+# target to generate assembly for a file
+src/states/intro_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/intro_state.cpp.s
+.PHONY : src/states/intro_state.cpp.s
+
+src/states/main_menu_state.o: src/states/main_menu_state.cpp.o
+.PHONY : src/states/main_menu_state.o
+
+# target to build an object file
+src/states/main_menu_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/main_menu_state.cpp.o
+.PHONY : src/states/main_menu_state.cpp.o
+
+src/states/main_menu_state.i: src/states/main_menu_state.cpp.i
+.PHONY : src/states/main_menu_state.i
+
+# target to preprocess a source file
+src/states/main_menu_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/main_menu_state.cpp.i
+.PHONY : src/states/main_menu_state.cpp.i
+
+src/states/main_menu_state.s: src/states/main_menu_state.cpp.s
+.PHONY : src/states/main_menu_state.s
+
+# target to generate assembly for a file
+src/states/main_menu_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/main_menu_state.cpp.s
+.PHONY : src/states/main_menu_state.cpp.s
+
+src/states/new_hero_state.o: src/states/new_hero_state.cpp.o
+.PHONY : src/states/new_hero_state.o
+
+# target to build an object file
+src/states/new_hero_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/new_hero_state.cpp.o
+.PHONY : src/states/new_hero_state.cpp.o
+
+src/states/new_hero_state.i: src/states/new_hero_state.cpp.i
+.PHONY : src/states/new_hero_state.i
+
+# target to preprocess a source file
+src/states/new_hero_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/new_hero_state.cpp.i
+.PHONY : src/states/new_hero_state.cpp.i
+
+src/states/new_hero_state.s: src/states/new_hero_state.cpp.s
+.PHONY : src/states/new_hero_state.s
+
+# target to generate assembly for a file
+src/states/new_hero_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/new_hero_state.cpp.s
+.PHONY : src/states/new_hero_state.cpp.s
+
+src/states/playing_state.o: src/states/playing_state.cpp.o
+.PHONY : src/states/playing_state.o
+
+# target to build an object file
+src/states/playing_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/playing_state.cpp.o
+.PHONY : src/states/playing_state.cpp.o
+
+src/states/playing_state.i: src/states/playing_state.cpp.i
+.PHONY : src/states/playing_state.i
+
+# target to preprocess a source file
+src/states/playing_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/playing_state.cpp.i
+.PHONY : src/states/playing_state.cpp.i
+
+src/states/playing_state.s: src/states/playing_state.cpp.s
+.PHONY : src/states/playing_state.s
+
+# target to generate assembly for a file
+src/states/playing_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/playing_state.cpp.s
+.PHONY : src/states/playing_state.cpp.s
+
+src/states/select_hero_state.o: src/states/select_hero_state.cpp.o
+.PHONY : src/states/select_hero_state.o
+
+# target to build an object file
+src/states/select_hero_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/select_hero_state.cpp.o
+.PHONY : src/states/select_hero_state.cpp.o
+
+src/states/select_hero_state.i: src/states/select_hero_state.cpp.i
+.PHONY : src/states/select_hero_state.i
+
+# target to preprocess a source file
+src/states/select_hero_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/select_hero_state.cpp.i
+.PHONY : src/states/select_hero_state.cpp.i
+
+src/states/select_hero_state.s: src/states/select_hero_state.cpp.s
+.PHONY : src/states/select_hero_state.s
+
+# target to generate assembly for a file
+src/states/select_hero_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/select_hero_state.cpp.s
+.PHONY : src/states/select_hero_state.cpp.s
+
+src/storm/stormlib.o: src/storm/stormlib.cpp.o
+.PHONY : src/storm/stormlib.o
+
+# target to build an object file
+src/storm/stormlib.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/storm/stormlib.cpp.o
+.PHONY : src/storm/stormlib.cpp.o
+
+src/storm/stormlib.i: src/storm/stormlib.cpp.i
+.PHONY : src/storm/stormlib.i
+
+# target to preprocess a source file
+src/storm/stormlib.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/storm/stormlib.cpp.i
+.PHONY : src/storm/stormlib.cpp.i
+
+src/storm/stormlib.s: src/storm/stormlib.cpp.s
+.PHONY : src/storm/stormlib.s
+
+# target to generate assembly for a file
+src/storm/stormlib.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/storm/stormlib.cpp.s
+.PHONY : src/storm/stormlib.cpp.s
+
+src/video.o: src/video.cpp.o
+.PHONY : src/video.o
+
+# target to build an object file
+src/video.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/video.cpp.o
+.PHONY : src/video.cpp.o
+
+src/video.i: src/video.cpp.i
+.PHONY : src/video.i
+
+# target to preprocess a source file
+src/video.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/video.cpp.i
+.PHONY : src/video.cpp.i
+
+src/video.s: src/video.cpp.s
+.PHONY : src/video.s
+
+# target to generate assembly for a file
+src/video.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/video.cpp.s
+.PHONY : src/video.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +594,63 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... diablo1"
+	@echo "... src/audio/music.o"
+	@echo "... src/audio/music.i"
+	@echo "... src/audio/music.s"
+	@echo "... src/audio/sfx.o"
+	@echo "... src/audio/sfx.i"
+	@echo "... src/audio/sfx.s"
+	@echo "... src/font.o"
+	@echo "... src/font.i"
+	@echo "... src/font.s"
+	@echo "... src/game.o"
+	@echo "... src/game.i"
+	@echo "... src/game.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/pcx.o"
+	@echo "... src/pcx.i"
+	@echo "... src/pcx.s"
+	@echo "... src/smacker/libsmackerdec/BitReader.o"
+	@echo "... src/smacker/libsmackerdec/BitReader.i"
+	@echo "... src/smacker/libsmackerdec/BitReader.s"
+	@echo "... src/smacker/libsmackerdec/FileStream.o"
+	@echo "... src/smacker/libsmackerdec/FileStream.i"
+	@echo "... src/smacker/libsmackerdec/FileStream.s"
+	@echo "... src/smacker/libsmackerdec/LogError.o"
+	@echo "... src/smacker/libsmackerdec/LogError.i"
+	@echo "... src/smacker/libsmackerdec/LogError.s"
+	@echo "... src/smacker/libsmackerdec/SmackerDecoder.o"
+	@echo "... src/smacker/libsmackerdec/SmackerDecoder.i"
+	@echo "... src/smacker/libsmackerdec/SmackerDecoder.s"
+	@echo "... src/smacker/libsmackker.o"
+	@echo "... src/smacker/libsmackker.i"
+	@echo "... src/smacker/libsmackker.s"
+	@echo "... src/smacker/pklib/explode.o"
+	@echo "... src/smacker/pklib/explode.i"
+	@echo "... src/smacker/pklib/explode.s"
+	@echo "... src/states/intro_state.o"
+	@echo "... src/states/intro_state.i"
+	@echo "... src/states/intro_state.s"
+	@echo "... src/states/main_menu_state.o"
+	@echo "... src/states/main_menu_state.i"
+	@echo "... src/states/main_menu_state.s"
+	@echo "... src/states/new_hero_state.o"
+	@echo "... src/states/new_hero_state.i"
+	@echo "... src/states/new_hero_state.s"
+	@echo "... src/states/playing_state.o"
+	@echo "... src/states/playing_state.i"
+	@echo "... src/states/playing_state.s"
+	@echo "... src/states/select_hero_state.o"
+	@echo "... src/states/select_hero_state.i"
+	@echo "... src/states/select_hero_state.s"
+	@echo "... src/storm/stormlib.o"
+	@echo "... src/storm/stormlib.i"
+	@echo "... src/storm/stormlib.s"
+	@echo "... src/video.o"
+	@echo "... src/video.i"
+	@echo "... src/video.s"
 .PHONY : help
 
 

@@ -19,6 +19,8 @@ private:
 	enum class State {
 		Intro,
 		MainMenu,
+		NewHero,
+		SelectHero,
 		Playing,
 		Paused,
 		Exiting
@@ -35,6 +37,10 @@ private:
 	bool RenderIntroState();
 	void UpdateMainMenuState(double dt);
 	bool RenderMainMenuState();
+	void UpdateNewHeroState(double dt);
+	bool RenderNewHeroState();
+	void UpdateSelectHeroState(double dt);
+	bool RenderSelectHeroState();
 	void UpdatePlayingState(double dt);
 	void Update(double dt);
 	bool Render();
@@ -50,6 +56,10 @@ private:
 	bool menuFontLoaded_;
 	Font menuButtonFont_;
 	bool menuButtonFontLoaded_;
+	Font heroCreationFont_;
+	bool heroCreationFontLoaded_;
+	Font heroClassFont_;
+	bool heroClassFontLoaded_;
 	libSmackker smackker_;
 	State state_;
 	IntroSequenceMode introSequenceMode_;
@@ -70,6 +80,7 @@ private:
 	std::vector<std::uint32_t> titleImage_;
 	std::vector<std::uint32_t> logoImage_;
 	std::vector<std::uint32_t> mainMenuImage_;
+	std::vector<std::uint32_t> selheroImage_;
 	std::vector<std::uint32_t> focus42Image_;
 	int titleWidth_;
 	int titleHeight_;
@@ -77,6 +88,8 @@ private:
 	int logoHeight_;
 	int mainMenuWidth_;
 	int mainMenuHeight_;
+	int selheroWidth_;
+	int selheroHeight_;
 	int focus42Width_;
 	int focus42Height_;
 	int mainMenuSelectionIndex_;

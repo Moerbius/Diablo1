@@ -14,6 +14,8 @@ add_executable(diablo1
     src/font.cpp
     src/states/intro_state.cpp
     src/states/main_menu_state.cpp
+    src/states/new_hero_state.cpp
+    src/states/select_hero_state.cpp
     src/states/playing_state.cpp
     src/smacker/libsmackerdec/BitReader.cpp
     src/smacker/libsmackerdec/FileStream.cpp

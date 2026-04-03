@@ -7,7 +7,7 @@
 #include <vector>
 
 namespace {
-constexpr bool kPreserveTitleAspectRatio = false;
+constexpr bool kPreserveTitleAspectRatio = true;
 }
 
 void Game::UpdateMainMenuState(double dt)
@@ -55,7 +55,7 @@ bool Game::RenderMainMenuState()
 
 	// Render scaled-down animated logo over the menu background
 	double uniformScale = std::min(scaleX, scaleY);
-	const double logoScale = 0.6;
+		const double logoScale = 0.7;
 	if (!logoImage_.empty() && logoWidth_ > 0 && logoHeight_ > 0) {
 		const int logoFrameHeight = logoHeight_ / 15;
 		const int logoFrameY = currentLogoFrame_ * logoFrameHeight;

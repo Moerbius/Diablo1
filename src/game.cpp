@@ -19,6 +19,7 @@ constexpr double kTitleScreenDurationSeconds = 5.0;
 constexpr double kRectSpeedX = 280.0;
 constexpr double kRectSpeedY = 190.0;
 constexpr int kMainMenuItemCount = 5;
+constexpr int kSinglePlayerMenuIndex = 0;
 constexpr int kReplayIntroMenuIndex = 2;
 constexpr int kExitDiabloMenuIndex = 4;
 
@@ -62,6 +63,8 @@ bool Game::Init()
 	logoHeight_ = 0;
 	mainMenuWidth_ = 0;
 	mainMenuHeight_ = 0;
+	selheroWidth_ = 0;
+	selheroHeight_ = 0;
 	focus42Width_ = 0;
 	focus42Height_ = 0;
 	mainMenuSelectionIndex_ = 0;
@@ -71,6 +74,8 @@ bool Game::Init()
 	menuSelectSfxLoaded_ = false;
 	menuFontLoaded_ = false;
 	menuButtonFontLoaded_ = false;
+	heroCreationFontLoaded_ = false;
+	heroClassFontLoaded_ = false;
 
 	if (!mpq_.OpenArchive("DIABDAT.MPQ") && !mpq_.OpenArchive("../DIABDAT.MPQ")) {
 		std::fprintf(stderr, "Failed to open DIABDAT.MPQ\n");
@@ -100,6 +105,8 @@ bool Game::Init()
 
 	menuFontLoaded_ = menuFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font24s);
 	menuButtonFontLoaded_ = menuButtonFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font42g);
+	heroCreationFontLoaded_ = heroCreationFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font30s);
+	heroClassFontLoaded_ = heroClassFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font30g);
 
 	return true;
 }
@@ -184,13 +191,19 @@ bool Game::HandleInput(bool& isRunning)
 					}
 					std::fprintf(stdout, "Selected menu item: %s\n", GetMainMenuItemName(mainMenuSelectionIndex_));
 					std::fflush(stdout);
-					if (mainMenuSelectionIndex_ == kReplayIntroMenuIndex) {
+					if (mainMenuSelectionIndex_ == kSinglePlayerMenuIndex) {
+						EnterState(State::NewHero);
+					} else if (mainMenuSelectionIndex_ == kReplayIntroMenuIndex) {
 						introSequenceMode_ = IntroSequenceMode::ReplayDiabloOnly;
 						EnterState(State::Intro);
 					} else if (mainMenuSelectionIndex_ == kExitDiabloMenuIndex) {
 						EnterState(State::Exiting);
 						isRunning = false;
 					}
+				}
+			} else if (state_ == State::NewHero || state_ == State::SelectHero) {
+				if (event.key.key == SDLK_ESCAPE) {
+					EnterState(State::MainMenu);
 				}
 			}
 		}
@@ -226,6 +239,11 @@ void Game::EnterState(State nextState)
 			menuMusic_.PlayMusic(true);
 		}
 	}
+
+	if (state_ == State::NewHero || state_ == State::SelectHero) {
+		logoAnimationTime_ = 0.0;
+		currentLogoFrame_ = 0;
+	}
 }
 
 void Game::Update(double dt)
@@ -238,6 +256,12 @@ void Game::Update(double dt)
 		return;
 	case State::MainMenu:
 		UpdateMainMenuState(dt);
+		return;
+	case State::NewHero:
+		UpdateNewHeroState(dt);
+		return;
+	case State::SelectHero:
+		UpdateSelectHeroState(dt);
 		return;
 	case State::Playing:
 	case State::Paused:
@@ -255,6 +279,10 @@ bool Game::Render()
 		return RenderIntroState();
 	case State::MainMenu:
 		return RenderMainMenuState();
+	case State::NewHero:
+		return RenderNewHeroState();
+	case State::SelectHero:
+		return RenderSelectHeroState();
 	case State::Playing:
 	case State::Paused:
 	case State::Exiting:
