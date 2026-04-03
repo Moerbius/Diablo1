@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+# CMake build files
+CMakeCache.txt
+CMakeFiles/
+build/
+build-cmake/
+cmake_install.cmake
+diablo1
+DIABDAT.MPQ
