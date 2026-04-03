@@ -21,13 +21,13 @@ bool PlayIntroSequence(libSmackker& smackker, StormLib& mpq, Video& video)
 	}
 
 	const libSmackker::PlaybackResult logoResult =
-		smackker.PlayWithControl(mpq, "gendata\\logo.smk", true, renderer);
+		smackker.PlayWithControl(mpq, "gendata\\logo.smk", true, renderer, video.GetWindow());
 	if (logoResult == libSmackker::PlaybackResult::Quit || logoResult == libSmackker::PlaybackResult::Error) {
 		return false;
 	}
 
 	const libSmackker::PlaybackResult diabloResult =
-		smackker.PlayWithControl(mpq, "gendata\\diablo1.smk", true, renderer);
+		smackker.PlayWithControl(mpq, "gendata\\diablo1.smk", true, renderer, video.GetWindow());
 	if (diabloResult == libSmackker::PlaybackResult::Quit || diabloResult == libSmackker::PlaybackResult::Error) {
 		return false;
 	}
@@ -95,7 +95,7 @@ void Game::UpdateIntroState(double dt)
 			}
 
 			const libSmackker::PlaybackResult replayResult =
-				smackker_.PlayWithControl(mpq_, "gendata\\diablo1.smk", true, renderer);
+			smackker_.PlayWithControl(mpq_, "gendata\\diablo1.smk", true, renderer, video_.GetWindow());
 			if (replayResult == libSmackker::PlaybackResult::Quit || replayResult == libSmackker::PlaybackResult::Error) {
 				EnterState(State::Exiting);
 				return;

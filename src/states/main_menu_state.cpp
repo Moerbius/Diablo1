@@ -85,7 +85,7 @@ bool Game::RenderMainMenuState()
 
 	// Render menu options below the logo.
 	if (menuButtonFontLoaded_) {
-		const float textScale = 1.0f;
+		const float textScale = static_cast<float>(uniformScale);
 		const std::array<const char*, 5> menuEntries = {
 			"Single Player",
 			"Multi Player",
@@ -97,7 +97,7 @@ bool Game::RenderMainMenuState()
 		const int logoFrameHeight = logoHeight_ / 15;
 		const int scaledLogoHeight = static_cast<int>(logoFrameHeight * uniformScale * logoScale);
 		const int lineHeight = std::max(1, menuButtonFont_.GetLineHeight(textScale));
-		const int firstLineY = renderY + scaledLogoHeight + lineHeight + 20;
+		const int firstLineY = renderY + scaledLogoHeight + lineHeight + static_cast<int>(20 * uniformScale);
 		const int selectedIndex = std::clamp(mainMenuSelectionIndex_, 0, static_cast<int>(menuEntries.size()) - 1);
 		int selectedTextX = 0;
 		int selectedTextY = 0;
@@ -149,21 +149,23 @@ bool Game::RenderMainMenuState()
 					}
 				}
 
-				const int markerY = selectedTextY + ((lineHeight - focusFrameHeight) / 2);
+				const int scaledFocusFrameWidth = static_cast<int>(focusFrameWidth * uniformScale);
+				const int scaledFocusFrameHeight = static_cast<int>(focusFrameHeight * uniformScale);
+				const int markerY = selectedTextY + ((lineHeight - scaledFocusFrameHeight) / 2);
 				const int markerPadding = std::max(1, menuButtonFont_.MeasureTextWidth("    ", textScale));
-				const int leftMarkerX = selectedTextX - focusFrameWidth - markerPadding;
+				const int leftMarkerX = selectedTextX - scaledFocusFrameWidth - markerPadding;
 				const int rightMarkerX = selectedTextX + selectedTextWidth + markerPadding;
 
 				if (!video_.RenderLogoScaled(
 					focusFramePixels.data(), focusFrameWidth, focusFrameHeight,
-					focusFrameWidth, focusFrameHeight,
+					scaledFocusFrameWidth, scaledFocusFrameHeight,
 					leftMarkerX, markerY)) {
 					return false;
 				}
 
 				if (!video_.RenderLogoScaled(
 					focusFramePixels.data(), focusFrameWidth, focusFrameHeight,
-					focusFrameWidth, focusFrameHeight,
+					scaledFocusFrameWidth, scaledFocusFrameHeight,
 					rightMarkerX, markerY)) {
 					return false;
 				}

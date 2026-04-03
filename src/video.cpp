@@ -22,7 +22,7 @@ bool Video::Init(const char* title, int width, int height)
 
 	std::fprintf(stderr, "SDL video driver: %s\n", SDL_GetCurrentVideoDriver());
 
-	window_ = SDL_CreateWindow(title, width, height, SDL_WINDOW_RESIZABLE);
+	window_ = SDL_CreateWindow(title, width, height, SDL_WINDOW_FULLSCREEN);
 	if (window_ == nullptr) {
 		std::fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
 		Shutdown();
@@ -406,7 +406,23 @@ bool Video::RenderComposite(const std::uint32_t* bgRgba, int bgWidth, int bgHeig
 	return true;
 }
 
+void Video::ToggleFullscreen()
+{
+	if (window_ == nullptr) {
+		return;
+	}
 
+	SDL_WindowFlags flags = SDL_GetWindowFlags(window_);
+	if (flags & SDL_WINDOW_FULLSCREEN) {
+		if (!SDL_SetWindowFullscreen(window_, false)) {
+			std::fprintf(stderr, "SDL_SetWindowFullscreen false failed: %s\n", SDL_GetError());
+		}
+	} else {
+		if (!SDL_SetWindowFullscreen(window_, true)) {
+			std::fprintf(stderr, "SDL_SetWindowFullscreen true failed: %s\n", SDL_GetError());
+		}
+	}
+}
 
 void Video::Shutdown()
 {

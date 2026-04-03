@@ -26,7 +26,7 @@ bool libSmackker::Play(StormLib& mpq, const std::string& smkPath, SDL_Renderer* 
 	return result == PlaybackResult::Completed || result == PlaybackResult::Skipped;
 }
 
-libSmackker::PlaybackResult libSmackker::PlayWithControl(StormLib& mpq, const std::string& smkPath, bool allowSkip, SDL_Renderer* renderer)
+libSmackker::PlaybackResult libSmackker::PlayWithControl(StormLib& mpq, const std::string& smkPath, bool allowSkip, SDL_Renderer* renderer, SDL_Window* window)
 {
 	if (renderer == nullptr) {
 		std::fprintf(stderr, "libSmackker: renderer is null\n");
@@ -115,11 +115,27 @@ libSmackker::PlaybackResult libSmackker::PlayWithControl(StormLib& mpq, const st
 			if (event.type == SDL_EVENT_QUIT) {
 				quitRequested = true;
 				running = false;
-			} else if (allowSkip && event.type == SDL_EVENT_KEY_DOWN) {
-				if (event.key.key == SDLK_SPACE || event.key.key == SDLK_RETURN || 
-				    event.key.key == SDLK_KP_ENTER || event.key.key == SDLK_ESCAPE) {
-					skipped = true;
-					running = false;
+			} else if (event.type == SDL_EVENT_KEY_DOWN) {
+				// Handle Alt+Enter for fullscreen toggle
+				if ((event.key.mod & (SDL_KMOD_LALT | SDL_KMOD_RALT)) && 
+				    (event.key.key == SDLK_RETURN || event.key.key == SDLK_KP_ENTER)) {
+					if (window != nullptr) {
+						SDL_WindowFlags flags = SDL_GetWindowFlags(window);
+						if (flags & SDL_WINDOW_FULLSCREEN) {
+							SDL_SetWindowFullscreen(window, false);
+						} else {
+							SDL_SetWindowFullscreen(window, true);
+						}
+					}
+				} else if (allowSkip) {
+					// Don't skip if Alt is held (Alt+Enter toggles fullscreen)
+					if (!(event.key.mod & (SDL_KMOD_LALT | SDL_KMOD_RALT))) {
+						if (event.key.key == SDLK_SPACE || event.key.key == SDLK_RETURN || 
+						    event.key.key == SDLK_KP_ENTER || event.key.key == SDLK_ESCAPE) {
+							skipped = true;
+							running = false;
+						}
+					}
 				}
 			}
 		}

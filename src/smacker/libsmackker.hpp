@@ -5,6 +5,7 @@
 class StormLib;
 
 struct SDL_Renderer;
+struct SDL_Window;
 
 class libSmackker {
 public:
@@ -19,5 +20,5 @@ public:
 	~libSmackker();
 
 	bool Play(StormLib& mpq, const std::string& smkPath, SDL_Renderer* renderer);
-	PlaybackResult PlayWithControl(StormLib& mpq, const std::string& smkPath, bool allowSkip, SDL_Renderer* renderer);
+	PlaybackResult PlayWithControl(StormLib& mpq, const std::string& smkPath, bool allowSkip, SDL_Renderer* renderer, SDL_Window* window = nullptr);
 };

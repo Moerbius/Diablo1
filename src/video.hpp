@@ -28,7 +28,9 @@ public:
 	bool RenderComposite(const std::uint32_t* bgRgba, int bgWidth, int bgHeight,
 	                      const std::uint32_t* fgRgba, int fgWidth, int fgHeight,
 	                      int fgX, int fgY);
+	void ToggleFullscreen();
 	SDL_Renderer* GetRenderer() const { return renderer_; }
+	SDL_Window* GetWindow() const { return window_; }
 
 private:
 	void Shutdown();

@@ -154,6 +154,13 @@ bool Game::HandleInput(bool& isRunning)
 		}
 
 		if (event.type == SDL_EVENT_KEY_DOWN) {
+			// Handle Alt+Enter for fullscreen toggle
+			if ((event.key.mod & (SDL_KMOD_LALT | SDL_KMOD_RALT)) && 
+			    (event.key.key == SDLK_RETURN || event.key.key == SDLK_KP_ENTER)) {
+				video_.ToggleFullscreen();
+				continue;
+			}
+
 			if (state_ == State::Intro && titlePresentationActive_) {
 				EnterState(State::MainMenu);
 			} else if (state_ == State::MainMenu) {
