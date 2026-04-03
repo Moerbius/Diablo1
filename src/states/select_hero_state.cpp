@@ -3,7 +3,6 @@
 #include <SDL3/SDL.h>
 
 #include <algorithm>
-#include <vector>
 
 namespace {
 constexpr bool kPreserveTitleAspectRatio = true;
@@ -11,10 +10,7 @@ constexpr bool kPreserveTitleAspectRatio = true;
 
 void Game::UpdateSelectHeroState(double dt)
 {
-	// Animate logo in select hero state (15 frames at ~20 FPS)
-	logoAnimationTime_ += dt;
-	const double frameTime = 0.05;
-	currentLogoFrame_ = static_cast<int>(logoAnimationTime_ / frameTime) % 15;
+	logoRenderer_.Update(dt);
 }
 
 bool Game::RenderSelectHeroState()
@@ -53,31 +49,17 @@ bool Game::RenderSelectHeroState()
 	// Render scaled-down animated logo over the background
 	double uniformScale = std::min(scaleX, scaleY);
 	const double logoScale = 0.7;
-	if (!logoImage_.empty() && logoWidth_ > 0 && logoHeight_ > 0) {
-		const int logoFrameHeight = logoHeight_ / 15;
-		const int logoFrameY = currentLogoFrame_ * logoFrameHeight;
-		std::vector<std::uint32_t> logoFrame;
-		logoFrame.reserve(logoWidth_ * logoFrameHeight);
-
-		for (int y = 0; y < logoFrameHeight; ++y) {
-			for (int x = 0; x < logoWidth_; ++x) {
-				logoFrame.push_back(logoImage_[(logoFrameY + y) * logoWidth_ + x]);
-			}
-		}
-
-		// Scale logo to roughly 0.6x the background size and position at top
-		// Use uniform scale to maintain aspect ratio
-		const int scaledLogoWidth = static_cast<int>(logoWidth_ * uniformScale * logoScale);
-		const int scaledLogoHeight = static_cast<int>(logoFrameHeight * uniformScale * logoScale);
-		const int logoX = renderX + ((renderWidth - scaledLogoWidth) / 2);
-		const int logoY = renderY;  // Top of screen
-
-		if (!video_.RenderLogoScaled(
-			logoFrame.data(), logoWidth_, logoFrameHeight,
-			scaledLogoWidth, scaledLogoHeight,
-			logoX, logoY)) {
-			return false;
-		}
+	if (!logoRenderer_.RenderTopCentered(
+			video_,
+			logoImage_,
+			logoWidth_,
+			logoHeight_,
+			uniformScale,
+			logoScale,
+			renderX,
+			renderY,
+			renderWidth)) {
+		return false;
 	}
 
 	SDL_RenderPresent(renderer);

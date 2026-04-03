@@ -17,13 +17,23 @@ add_executable(diablo1
     src/states/new_hero_state.cpp
     src/states/select_hero_state.cpp
     src/states/playing_state.cpp
+    src/heroes/hero.cpp
+    src/heroes/warrior.cpp
+    src/heroes/rogue.cpp
+    src/heroes/sorcerer.cpp
     src/smacker/libsmackerdec/BitReader.cpp
     src/smacker/libsmackerdec/FileStream.cpp
     src/smacker/libsmackerdec/LogError.cpp
     src/smacker/libsmackerdec/SmackerDecoder.cpp
     src/game.cpp
     src/smacker/libsmackker.cpp
+    src/focus_renderer.cpp
+    src/logo_renderer.cpp
+    src/portrait_renderer.cpp
     src/pcx.cpp
+    src/graphics/cel.cpp
+    src/graphics/cel_animation.cpp
+    src/graphics/pal.cpp
     src/smacker/pklib/explode.c
     src/audio/sfx.cpp
     src/storm/stormlib.cpp

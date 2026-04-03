@@ -4,8 +4,6 @@
 
 #include <algorithm>
 #include <array>
-#include <vector>
-
 namespace {
 constexpr bool kPreserveTitleAspectRatio = true;
 }
@@ -13,11 +11,9 @@ constexpr bool kPreserveTitleAspectRatio = true;
 void Game::UpdateMainMenuState(double dt)
 {
 	menuMusic_.Update();
-	
-	// Animate logo in main menu (15 frames at ~20 FPS)
-	logoAnimationTime_ += dt;
-	const double frameTime = 0.05;
-	currentLogoFrame_ = static_cast<int>(logoAnimationTime_ / frameTime) % 15;
+	logoRenderer_.Update(dt);
+	focusRenderer_.Update(dt);
+	magballAnimation_.Update(dt);
 }
 
 bool Game::RenderMainMenuState()
@@ -33,13 +29,13 @@ bool Game::RenderMainMenuState()
 
 	double scaleX = static_cast<double>(windowWidth_) / mainMenuWidth_;
 	double scaleY = static_cast<double>(windowHeight_) / mainMenuHeight_;
+	double uniformScale = std::min(scaleX, scaleY);
 	int renderX = 0;
 	int renderY = 0;
 	int renderWidth = windowWidth_;
 	int renderHeight = windowHeight_;
 
 	if (kPreserveTitleAspectRatio) {
-		const double uniformScale = std::min(scaleX, scaleY);
 		renderWidth = static_cast<int>(mainMenuWidth_ * uniformScale);
 		renderHeight = static_cast<int>(mainMenuHeight_ * uniformScale);
 		renderX = (windowWidth_ - renderWidth) / 2;
@@ -53,34 +49,35 @@ bool Game::RenderMainMenuState()
 		return false;
 	}
 
-	// Render scaled-down animated logo over the menu background
-	double uniformScale = std::min(scaleX, scaleY);
-		const double logoScale = 0.7;
-	if (!logoImage_.empty() && logoWidth_ > 0 && logoHeight_ > 0) {
-		const int logoFrameHeight = logoHeight_ / 15;
-		const int logoFrameY = currentLogoFrame_ * logoFrameHeight;
-		std::vector<std::uint32_t> logoFrame;
-		logoFrame.reserve(logoWidth_ * logoFrameHeight);
-
-		for (int y = 0; y < logoFrameHeight; ++y) {
-			for (int x = 0; x < logoWidth_; ++x) {
-				logoFrame.push_back(logoImage_[(logoFrameY + y) * logoWidth_ + x]);
-			}
-		}
-
-		// Scale logo to roughly 0.6x the menu background size and position at top
-		// Use uniform scale to maintain aspect ratio
-		const int scaledLogoWidth = static_cast<int>(logoWidth_ * uniformScale * logoScale);
-		const int scaledLogoHeight = static_cast<int>(logoFrameHeight * uniformScale * logoScale);
-		const int logoX = renderX + ((renderWidth - scaledLogoWidth) / 2);
-		const int logoY = renderY;  // Top of screen
-
+	if (magballAnimation_.HasFrame()) {
+		const std::vector<std::uint32_t>& magballImage = magballAnimation_.GetCurrentFrame();
+		const int magballWidth = magballAnimation_.GetWidth();
+		const int magballHeight = magballAnimation_.GetHeight();
+		const int scaledMagballWidth = std::max(1, static_cast<int>(magballWidth * uniformScale));
+		const int scaledMagballHeight = std::max(1, static_cast<int>(magballHeight * uniformScale));
 		if (!video_.RenderLogoScaled(
-			logoFrame.data(), logoWidth_, logoFrameHeight,
-			scaledLogoWidth, scaledLogoHeight,
-			logoX, logoY)) {
+			magballImage.data(), magballWidth, magballHeight,
+			scaledMagballWidth, scaledMagballHeight,
+			renderX, renderY)) {
 			return false;
 		}
+	}
+
+	// Render scaled-down animated logo over the menu background
+	const double logoScale = 0.7;
+	int scaledLogoHeight = 0;
+	if (!logoRenderer_.RenderTopCentered(
+			video_,
+			logoImage_,
+			logoWidth_,
+			logoHeight_,
+			uniformScale,
+			logoScale,
+			renderX,
+			renderY,
+			renderWidth,
+			&scaledLogoHeight)) {
+		return false;
 	}
 
 	// Render menu options below the logo.
@@ -94,8 +91,6 @@ bool Game::RenderMainMenuState()
 			"Exit Diablo"
 		};
 
-		const int logoFrameHeight = logoHeight_ / 15;
-		const int scaledLogoHeight = static_cast<int>(logoFrameHeight * uniformScale * logoScale);
 		const int lineHeight = std::max(1, menuButtonFont_.GetLineHeight(textScale));
 		const int firstLineY = renderY + scaledLogoHeight + lineHeight + static_cast<int>(20 * uniformScale);
 		const int selectedIndex = std::clamp(mainMenuSelectionIndex_, 0, static_cast<int>(menuEntries.size()) - 1);
@@ -117,58 +112,27 @@ bool Game::RenderMainMenuState()
 			}
 		}
 
-		if (!focus42Image_.empty() && focus42Width_ > 0 && focus42Height_ > 0) {
-			constexpr int kFocusFrameCount = 8;
-			const int focusFrame = static_cast<int>(logoAnimationTime_ / 0.05) % kFocusFrameCount;
-
-			int focusFrameWidth = 0;
-			int focusFrameHeight = 0;
-			int focusFrameX = 0;
-			int focusFrameY = 0;
-
-			if ((focus42Height_ % kFocusFrameCount) == 0) {
-				focusFrameWidth = focus42Width_;
-				focusFrameHeight = focus42Height_ / kFocusFrameCount;
-				focusFrameX = 0;
-				focusFrameY = focusFrame * focusFrameHeight;
-			} else if ((focus42Width_ % kFocusFrameCount) == 0) {
-				focusFrameWidth = focus42Width_ / kFocusFrameCount;
-				focusFrameHeight = focus42Height_;
-				focusFrameX = focusFrame * focusFrameWidth;
-				focusFrameY = 0;
-			}
-
-			if (focusFrameWidth > 0 && focusFrameHeight > 0) {
-				std::vector<std::uint32_t> focusFramePixels;
-				focusFramePixels.reserve(focusFrameWidth * focusFrameHeight);
-				for (int y = 0; y < focusFrameHeight; ++y) {
-					for (int x = 0; x < focusFrameWidth; ++x) {
-						const int srcX = focusFrameX + x;
-						const int srcY = focusFrameY + y;
-						focusFramePixels.push_back(focus42Image_[srcY * focus42Width_ + srcX]);
-					}
-				}
-
-				const int scaledFocusFrameWidth = static_cast<int>(focusFrameWidth * uniformScale);
-				const int scaledFocusFrameHeight = static_cast<int>(focusFrameHeight * uniformScale);
-				const int markerY = selectedTextY + ((lineHeight - scaledFocusFrameHeight) / 2);
-				const int markerPadding = std::max(1, menuButtonFont_.MeasureTextWidth("    ", textScale));
-				const int leftMarkerX = selectedTextX - scaledFocusFrameWidth - markerPadding;
-				const int rightMarkerX = selectedTextX + selectedTextWidth + markerPadding;
-
-				if (!video_.RenderLogoScaled(
-					focusFramePixels.data(), focusFrameWidth, focusFrameHeight,
-					scaledFocusFrameWidth, scaledFocusFrameHeight,
-					leftMarkerX, markerY)) {
-					return false;
-				}
-
-				if (!video_.RenderLogoScaled(
-					focusFramePixels.data(), focusFrameWidth, focusFrameHeight,
-					scaledFocusFrameWidth, scaledFocusFrameHeight,
-					rightMarkerX, markerY)) {
-					return false;
-				}
+		const FocusAtlas focusAtlas = FocusAtlas::Focus42;
+		const std::vector<std::uint32_t>* focusImage = nullptr;
+		int focusWidth = 0;
+		int focusHeight = 0;
+		int focusFrameCount = 0;
+		if (GetFocusAtlas(focusAtlas, focusImage, focusWidth, focusHeight, focusFrameCount) &&
+			focusImage != nullptr && !focusImage->empty() && focusWidth > 0 && focusHeight > 0 && focusFrameCount > 0) {
+			const int markerPadding = std::max(1, menuButtonFont_.MeasureTextWidth("    ", textScale));
+			if (!focusRenderer_.RenderPairAroundText(
+					video_,
+					*focusImage,
+					focusWidth,
+					focusHeight,
+					focusFrameCount,
+					uniformScale,
+					selectedTextX,
+					selectedTextY,
+					selectedTextWidth,
+					lineHeight,
+					markerPadding)) {
+				return false;
 			}
 		}
 	}

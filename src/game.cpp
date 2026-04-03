@@ -19,6 +19,7 @@ constexpr double kTitleScreenDurationSeconds = 5.0;
 constexpr double kRectSpeedX = 280.0;
 constexpr double kRectSpeedY = 190.0;
 constexpr int kMainMenuItemCount = 5;
+constexpr int kNewHeroClassCount = 3;
 constexpr int kSinglePlayerMenuIndex = 0;
 constexpr int kReplayIntroMenuIndex = 2;
 constexpr int kExitDiabloMenuIndex = 4;
@@ -39,6 +40,21 @@ const char* GetMainMenuItemName(int index)
 
 	return kItems[static_cast<std::size_t>(index)];
 }
+
+const char* GetNewHeroClassName(int index)
+{
+	static constexpr std::array<const char*, kNewHeroClassCount> kClasses = {
+		"Warrior",
+		"Rogue",
+		"Sorcerer"
+	};
+
+	if (index < 0 || index >= kNewHeroClassCount) {
+		return "Unknown";
+	}
+
+	return kClasses[static_cast<std::size_t>(index)];
+}
 } // namespace
 
 bool Game::Init()
@@ -56,6 +72,7 @@ bool Game::Init()
 	titlePresentationTimeSeconds_ = 0.0;
 	introDone_ = false;
 	titlePresentationActive_ = false;
+	menuMusicPlaying_ = false;
 	resetFrameTimer_ = false;
 	titleWidth_ = 0;
 	titleHeight_ = 0;
@@ -65,17 +82,28 @@ bool Game::Init()
 	mainMenuHeight_ = 0;
 	selheroWidth_ = 0;
 	selheroHeight_ = 0;
+	herosWidth_ = 0;
+	herosHeight_ = 0;
+	smallPortraitWidth_ = 0;
+	smallPortraitHeight_ = 0;
+	focusWidth_ = 0;
+	focusHeight_ = 0;
+	focus16Width_ = 0;
+	focus16Height_ = 0;
 	focus42Width_ = 0;
 	focus42Height_ = 0;
 	mainMenuSelectionIndex_ = 0;
-	currentLogoFrame_ = 0;
-	logoAnimationTime_ = 0.0;
+	newHeroClassSelectionIndex_ = 0;
+	magballAnimation_.Clear();
+	logoRenderer_.Reset();
+	focusRenderer_.Reset();
 	menuMoveSfxLoaded_ = false;
 	menuSelectSfxLoaded_ = false;
 	menuFontLoaded_ = false;
 	menuButtonFontLoaded_ = false;
 	heroCreationFontLoaded_ = false;
 	heroClassFontLoaded_ = false;
+	heroStatsFontLoaded_ = false;
 
 	if (!mpq_.OpenArchive("DIABDAT.MPQ") && !mpq_.OpenArchive("../DIABDAT.MPQ")) {
 		std::fprintf(stderr, "Failed to open DIABDAT.MPQ\n");
@@ -107,8 +135,79 @@ bool Game::Init()
 	menuButtonFontLoaded_ = menuButtonFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font42g);
 	heroCreationFontLoaded_ = heroCreationFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font30s);
 	heroClassFontLoaded_ = heroClassFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font30g);
+	heroStatsFontLoaded_ = heroStatsFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font16s);
 
 	return true;
+}
+
+bool Game::GetFocusAtlas(
+	FocusAtlas atlas,
+	const std::vector<std::uint32_t>*& image,
+	int& width,
+	int& height,
+	int& frameCount) const
+{
+	image = nullptr;
+	width = 0;
+	height = 0;
+	frameCount = 0;
+
+	switch (atlas) {
+	case FocusAtlas::Focus:
+		image = &focusImage_;
+		width = focusWidth_;
+		height = focusHeight_;
+		frameCount = 8;
+		return true;
+	case FocusAtlas::Focus16:
+		image = &focus16Image_;
+		width = focus16Width_;
+		height = focus16Height_;
+		frameCount = 8;
+		return true;
+	case FocusAtlas::Focus42:
+		image = &focus42Image_;
+		width = focus42Width_;
+		height = focus42Height_;
+		frameCount = 8;
+		return true;
+	}
+
+	return false;
+}
+
+bool Game::GetPortraitAtlas(
+	PortraitAtlas atlas,
+	const std::vector<std::uint32_t>*& image,
+	int& width,
+	int& height,
+	int& frameCount,
+	bool& preferVertical) const
+{
+	image = nullptr;
+	width = 0;
+	height = 0;
+	frameCount = 0;
+	preferVertical = true;
+
+	switch (atlas) {
+	case PortraitAtlas::Heros:
+		image = &herosImage_;
+		width = herosWidth_;
+		height = herosHeight_;
+		frameCount = 4;
+		preferVertical = true;
+		return true;
+	case PortraitAtlas::SmallPortrait:
+		image = &smallPortraitImage_;
+		width = smallPortraitWidth_;
+		height = smallPortraitHeight_;
+		frameCount = 12;
+		preferVertical = true;
+		return true;
+	}
+
+	return false;
 }
 
 int Game::Run()
@@ -201,8 +300,36 @@ bool Game::HandleInput(bool& isRunning)
 						isRunning = false;
 					}
 				}
-			} else if (state_ == State::NewHero || state_ == State::SelectHero) {
+			} else if (state_ == State::NewHero) {
 				if (event.key.key == SDLK_ESCAPE) {
+					if (menuSelectSfxLoaded_) {
+						menuSelectSfx_.PlayOneShot();
+					}
+					EnterState(State::MainMenu);
+				} else if (event.key.key == SDLK_UP) {
+					const int previousIndex = newHeroClassSelectionIndex_;
+					newHeroClassSelectionIndex_ = (newHeroClassSelectionIndex_ + kNewHeroClassCount - 1) % kNewHeroClassCount;
+					if (menuMoveSfxLoaded_ && newHeroClassSelectionIndex_ != previousIndex) {
+						menuMoveSfx_.PlayOneShot();
+					}
+				} else if (event.key.key == SDLK_DOWN) {
+					const int previousIndex = newHeroClassSelectionIndex_;
+					newHeroClassSelectionIndex_ = (newHeroClassSelectionIndex_ + 1) % kNewHeroClassCount;
+					if (menuMoveSfxLoaded_ && newHeroClassSelectionIndex_ != previousIndex) {
+						menuMoveSfx_.PlayOneShot();
+					}
+				} else if (event.key.key == SDLK_RETURN || event.key.key == SDLK_KP_ENTER) {
+					if (menuSelectSfxLoaded_) {
+						menuSelectSfx_.PlayOneShot();
+					}
+					std::fprintf(stdout, "Selected hero class: %s\n", GetNewHeroClassName(newHeroClassSelectionIndex_));
+					std::fflush(stdout);
+				}
+			} else if (state_ == State::SelectHero) {
+				if (event.key.key == SDLK_ESCAPE) {
+					if (menuSelectSfxLoaded_) {
+						menuSelectSfx_.PlayOneShot();
+					}
 					EnterState(State::MainMenu);
 				}
 			}
@@ -214,8 +341,9 @@ bool Game::HandleInput(bool& isRunning)
 
 void Game::EnterState(State nextState)
 {
-	if (nextState != State::MainMenu) {
+	if (nextState != State::MainMenu && nextState != State::NewHero && nextState != State::SelectHero) {
 		menuMusic_.StopMusic();
+		menuMusicPlaying_ = false;
 	}
 
 	state_ = nextState;
@@ -225,8 +353,8 @@ void Game::EnterState(State nextState)
 	if (state_ == State::Intro) {
 		rectX_ = (windowWidth_ - rectSize_) / 2.0;
 		rectY_ = (windowHeight_ - rectSize_) / 2.0;
-		logoAnimationTime_ = 0.0;
-		currentLogoFrame_ = 0;
+		logoRenderer_.Reset();
+		focusRenderer_.Reset();
 		introDone_ = false;
 		titlePresentationActive_ = false;
 	}
@@ -235,14 +363,18 @@ void Game::EnterState(State nextState)
 		bool needsMusic = !titlePresentationActive_;
 		titlePresentationActive_ = false;
 		mainMenuSelectionIndex_ = std::clamp(mainMenuSelectionIndex_, 0, kMainMenuItemCount - 1);
-		if (needsMusic) {
-			menuMusic_.PlayMusic(true);
+		focusRenderer_.Reset();
+		if (needsMusic && !menuMusicPlaying_) {
+			menuMusicPlaying_ = menuMusic_.PlayMusic(true);
 		}
 	}
 
 	if (state_ == State::NewHero || state_ == State::SelectHero) {
-		logoAnimationTime_ = 0.0;
-		currentLogoFrame_ = 0;
+		logoRenderer_.Reset();
+		focusRenderer_.Reset();
+		if (state_ == State::NewHero) {
+			newHeroClassSelectionIndex_ = 0;
+		}
 	}
 }
 

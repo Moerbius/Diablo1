@@ -1,5 +1,7 @@
 #include "game.hpp"
 
+#include "graphics/cel.hpp"
+#include "graphics/pal.hpp"
 #include "pcx.hpp"
 
 #include <SDL3/SDL.h>
@@ -12,6 +14,7 @@ namespace {
 constexpr bool kPreserveTitleAspectRatio = true;
 constexpr int kLogoOffsetYNative = 48;
 constexpr double kTitleScreenDurationSeconds = 5.0;
+constexpr double kMagballFrameDurationSeconds = 0.12;
 
 bool PlayIntroSequence(libSmackker& smackker, StormLib& mpq, Video& video)
 {
@@ -41,7 +44,12 @@ bool LoadTitleScreen(
 	std::vector<std::uint32_t>& logoImage,
 	std::vector<std::uint32_t>& mainMenuImage,
 	std::vector<std::uint32_t>& selheroImage,
+	std::vector<std::uint32_t>& herosImage,
+	std::vector<std::uint32_t>& smallPortraitImage,
+	std::vector<std::uint32_t>& focusImage,
+	std::vector<std::uint32_t>& focus16Image,
 	std::vector<std::uint32_t>& focus42Image,
+	CELAnimation& magballAnimation,
 	int& titleWidth,
 	int& titleHeight,
 	int& logoWidth,
@@ -50,6 +58,14 @@ bool LoadTitleScreen(
 	int& mainMenuHeight,
 	int& selheroWidth,
 	int& selheroHeight,
+	int& herosWidth,
+	int& herosHeight,
+	int& smallPortraitWidth,
+	int& smallPortraitHeight,
+	int& focusWidth,
+	int& focusHeight,
+	int& focus16Width,
+	int& focus16Height,
 	int& focus42Width,
 	int& focus42Height)
 {
@@ -57,6 +73,10 @@ bool LoadTitleScreen(
 	PCXImage logoPcx = PCX::LoadFromMPQ(mpq, "ui_art\\logo.pcx");
 	PCXImage mainMenuPcx = PCX::LoadFromMPQ(mpq, "ui_art\\mainmenu.pcx");
 	PCXImage selheropcx = PCX::LoadFromMPQ(mpq, "ui_art\\selhero.pcx");
+	PCXImage herosPcx = PCX::LoadFromMPQ(mpq, "ui_art\\heros.pcx");
+	PCXImage smallPortraitPcx = PCX::LoadFromMPQ(mpq, "ui_art\\heroport.pcx");
+	PCXImage focusPcx = PCX::LoadFromMPQ(mpq, "ui_art\\focus.pcx");
+	PCXImage focus16Pcx = PCX::LoadFromMPQ(mpq, "ui_art\\focus16.pcx");
 	PCXImage focus42Pcx = PCX::LoadFromMPQ(mpq, "ui_art\\focus42.pcx");
 
 	if (titlePcx.pixels.empty() || logoPcx.pixels.empty() || mainMenuPcx.pixels.empty()) {
@@ -84,6 +104,46 @@ bool LoadTitleScreen(
 		selheroImage.clear();
 	}
 
+	if (!herosPcx.pixels.empty() && herosPcx.width > 0 && herosPcx.height > 0) {
+		herosWidth = static_cast<int>(herosPcx.width);
+		herosHeight = static_cast<int>(herosPcx.height);
+		herosImage = PCX::ConvertToRGBA32(herosPcx);
+	} else {
+		herosWidth = 0;
+		herosHeight = 0;
+		herosImage.clear();
+	}
+
+	if (!smallPortraitPcx.pixels.empty() && smallPortraitPcx.width > 0 && smallPortraitPcx.height > 0) {
+		smallPortraitWidth = static_cast<int>(smallPortraitPcx.width);
+		smallPortraitHeight = static_cast<int>(smallPortraitPcx.height);
+		smallPortraitImage = PCX::ConvertToRGBA32(smallPortraitPcx);
+	} else {
+		smallPortraitWidth = 0;
+		smallPortraitHeight = 0;
+		smallPortraitImage.clear();
+	}
+
+	if (!focusPcx.pixels.empty() && focusPcx.width > 0 && focusPcx.height > 0) {
+		focusWidth = static_cast<int>(focusPcx.width);
+		focusHeight = static_cast<int>(focusPcx.height);
+		focusImage = PCX::ConvertToRGBA32(focusPcx);
+	} else {
+		focusWidth = 0;
+		focusHeight = 0;
+		focusImage.clear();
+	}
+
+	if (!focus16Pcx.pixels.empty() && focus16Pcx.width > 0 && focus16Pcx.height > 0) {
+		focus16Width = static_cast<int>(focus16Pcx.width);
+		focus16Height = static_cast<int>(focus16Pcx.height);
+		focus16Image = PCX::ConvertToRGBA32(focus16Pcx);
+	} else {
+		focus16Width = 0;
+		focus16Height = 0;
+		focus16Image.clear();
+	}
+
 	if (!focus42Pcx.pixels.empty() && focus42Pcx.width > 0 && focus42Pcx.height > 0) {
 		focus42Width = static_cast<int>(focus42Pcx.width);
 		focus42Height = static_cast<int>(focus42Pcx.height);
@@ -92,6 +152,29 @@ bool LoadTitleScreen(
 		focus42Width = 0;
 		focus42Height = 0;
 		focus42Image.clear();
+	}
+
+	CELImage magballCel = CEL::LoadFromMPQ(mpq, "monsters\\magma\\magball1.cel");
+	std::vector<std::uint8_t> l1Palette = PAL::LoadFromMPQ(mpq, "levels\\l1data\\l1.pal");
+	magballAnimation.Clear();
+
+	if (!magballCel.frames.empty()) {
+		const CELFrame& firstFrame = magballCel.frames[0];
+		const int magballWidth = static_cast<int>(firstFrame.width);
+		const int magballHeight = static_cast<int>(firstFrame.height);
+		std::vector<std::vector<std::uint32_t>> magballFrames;
+		magballFrames.reserve(magballCel.frames.size());
+		if (!l1Palette.empty()) {
+			for (const CELFrame& frame : magballCel.frames) {
+				magballFrames.push_back(CEL::ConvertFrameToRGBA32(frame, l1Palette, 0));
+			}
+		} else {
+			for (const CELFrame& frame : magballCel.frames) {
+				magballFrames.push_back(CEL::ConvertFrameToRGBA32(frame, mainMenuPcx.palette, 0));
+			}
+		}
+		magballAnimation.SetFrames(std::move(magballFrames), magballWidth, magballHeight,
+			kMagballFrameDurationSeconds);
 	}
 
 	return true;
@@ -134,7 +217,12 @@ void Game::UpdateIntroState(double dt)
 				logoImage_,
 				mainMenuImage_,
 				selheroImage_,
+				herosImage_,
+				smallPortraitImage_,
+				focusImage_,
+				focus16Image_,
 				focus42Image_,
+				magballAnimation_,
 				titleWidth_,
 				titleHeight_,
 				logoWidth_,
@@ -143,6 +231,14 @@ void Game::UpdateIntroState(double dt)
 				mainMenuHeight_,
 				selheroWidth_,
 				selheroHeight_,
+				herosWidth_,
+				herosHeight_,
+				smallPortraitWidth_,
+				smallPortraitHeight_,
+				focusWidth_,
+				focusHeight_,
+				focus16Width_,
+				focus16Height_,
 				focus42Width_,
 				focus42Height_)) {
 			EnterState(State::Exiting);
@@ -151,9 +247,8 @@ void Game::UpdateIntroState(double dt)
 
 		titlePresentationActive_ = true;
 		titlePresentationTimeSeconds_ = 0.0;
-		logoAnimationTime_ = 0.0;
-		currentLogoFrame_ = 0;
-		menuMusic_.PlayMusic(true);
+		logoRenderer_.Reset();
+		menuMusicPlaying_ = menuMusic_.PlayMusic(true);
 		resetFrameTimer_ = true;
 		return;
 	}
@@ -164,9 +259,7 @@ void Game::UpdateIntroState(double dt)
 
 	menuMusic_.Update();
 	titlePresentationTimeSeconds_ += dt;
-	logoAnimationTime_ += dt;
-	const double frameTime = 0.05;
-	currentLogoFrame_ = static_cast<int>(logoAnimationTime_ / frameTime) % 15;
+	logoRenderer_.Update(dt);
 
 	if (titlePresentationTimeSeconds_ >= kTitleScreenDurationSeconds) {
 		EnterState(State::MainMenu);
@@ -213,23 +306,6 @@ bool Game::RenderIntroState()
 		return false;
 	}
 
-	const int logoFrameHeight = logoHeight_ / 15;
-	const int logoFrameY = currentLogoFrame_ * logoFrameHeight;
-	std::vector<std::uint32_t> logoFrame;
-	logoFrame.reserve(logoWidth_ * logoFrameHeight);
-
-	for (int y = 0; y < logoFrameHeight; ++y) {
-		for (int x = 0; x < logoWidth_; ++x) {
-			logoFrame.push_back(logoImage_[(logoFrameY + y) * logoWidth_ + x]);
-		}
-	}
-
-	const int scaledLogoWidth = static_cast<int>(logoWidth_ * scaleX);
-	const int scaledLogoHeight = static_cast<int>(logoFrameHeight * scaleY);
-	const int logoX = titleRenderX + ((titleRenderWidth - scaledLogoWidth) / 2);
-	const int logoOffsetY = static_cast<int>(kLogoOffsetYNative * scaleY);
-	const int logoY = titleRenderY + ((titleRenderHeight - scaledLogoHeight) / 2) + logoOffsetY;
-
 	if (menuFontLoaded_) {
 		const float textScale = static_cast<float>(scaleY);
 		const std::string promptText = "Copyright © 1996-2001 Blizzard Entertainment";
@@ -241,10 +317,18 @@ bool Game::RenderIntroState()
 		}
 	}
 
-	if (!video_.RenderLogoScaled(
-		logoFrame.data(), logoWidth_, logoFrameHeight,
-		scaledLogoWidth, scaledLogoHeight,
-		logoX, logoY)) {
+	if (!logoRenderer_.RenderCenteredWithNativeOffset(
+			video_,
+			logoImage_,
+			logoWidth_,
+			logoHeight_,
+			scaleX,
+			scaleY,
+			titleRenderX,
+			titleRenderY,
+			titleRenderWidth,
+			titleRenderHeight,
+			kLogoOffsetYNative)) {
 		return false;
 	}
 

@@ -2,8 +2,13 @@
 
 #include "audio/music.hpp"
 #include "font.hpp"
+#include "graphics/cel_animation.hpp"
+#include "focus_renderer.hpp"
+#include "logo_renderer.hpp"
+#include "portrait_renderer.hpp"
 #include "smacker/libsmackker.hpp"
 #include "audio/sfx.hpp"
+#include "graphics/cel.hpp"
 #include "storm/stormlib.hpp"
 #include "video.hpp"
 
@@ -31,6 +36,17 @@ private:
 		ReplayDiabloOnly
 	};
 
+	enum class FocusAtlas {
+		Focus,
+		Focus16,
+		Focus42
+	};
+
+	enum class PortraitAtlas {
+		Heros,
+		SmallPortrait
+	};
+
 	bool HandleInput(bool& isRunning);
 	void EnterState(State nextState);
 	void UpdateIntroState(double dt);
@@ -42,6 +58,19 @@ private:
 	void UpdateSelectHeroState(double dt);
 	bool RenderSelectHeroState();
 	void UpdatePlayingState(double dt);
+	bool GetFocusAtlas(
+		FocusAtlas atlas,
+		const std::vector<std::uint32_t>*& image,
+		int& width,
+		int& height,
+		int& frameCount) const;
+	bool GetPortraitAtlas(
+		PortraitAtlas atlas,
+		const std::vector<std::uint32_t>*& image,
+		int& width,
+		int& height,
+		int& frameCount,
+		bool& preferVertical) const;
 	void Update(double dt);
 	bool Render();
 
@@ -60,6 +89,11 @@ private:
 	bool heroCreationFontLoaded_;
 	Font heroClassFont_;
 	bool heroClassFontLoaded_;
+	Font heroStatsFont_;
+	bool heroStatsFontLoaded_;
+	LogoRenderer logoRenderer_;
+	FocusRenderer focusRenderer_;
+	PortraitRenderer portraitRenderer_;
 	libSmackker smackker_;
 	State state_;
 	IntroSequenceMode introSequenceMode_;
@@ -67,6 +101,7 @@ private:
 	double titlePresentationTimeSeconds_;
 	bool introDone_;
 	bool titlePresentationActive_;
+	bool menuMusicPlaying_;
 	bool resetFrameTimer_;
 	int windowWidth_;
 	int windowHeight_;
@@ -81,6 +116,10 @@ private:
 	std::vector<std::uint32_t> logoImage_;
 	std::vector<std::uint32_t> mainMenuImage_;
 	std::vector<std::uint32_t> selheroImage_;
+	std::vector<std::uint32_t> herosImage_;
+	std::vector<std::uint32_t> smallPortraitImage_;
+	std::vector<std::uint32_t> focusImage_;
+	std::vector<std::uint32_t> focus16Image_;
 	std::vector<std::uint32_t> focus42Image_;
 	int titleWidth_;
 	int titleHeight_;
@@ -90,9 +129,17 @@ private:
 	int mainMenuHeight_;
 	int selheroWidth_;
 	int selheroHeight_;
+	int herosWidth_;
+	int herosHeight_;
+	int smallPortraitWidth_;
+	int smallPortraitHeight_;
+	int focusWidth_;
+	int focusHeight_;
+	int focus16Width_;
+	int focus16Height_;
 	int focus42Width_;
 	int focus42Height_;
 	int mainMenuSelectionIndex_;
-	int currentLogoFrame_;
-	double logoAnimationTime_;
+	int newHeroClassSelectionIndex_;
+	CELAnimation magballAnimation_;
 };
