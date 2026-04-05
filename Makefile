@@ -177,6 +177,30 @@ src/audio/sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/audio/sfx.cpp.s
 .PHONY : src/audio/sfx.cpp.s
 
+src/focus_renderer.o: src/focus_renderer.cpp.o
+.PHONY : src/focus_renderer.o
+
+# target to build an object file
+src/focus_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/focus_renderer.cpp.o
+.PHONY : src/focus_renderer.cpp.o
+
+src/focus_renderer.i: src/focus_renderer.cpp.i
+.PHONY : src/focus_renderer.i
+
+# target to preprocess a source file
+src/focus_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/focus_renderer.cpp.i
+.PHONY : src/focus_renderer.cpp.i
+
+src/focus_renderer.s: src/focus_renderer.cpp.s
+.PHONY : src/focus_renderer.s
+
+# target to generate assembly for a file
+src/focus_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/focus_renderer.cpp.s
+.PHONY : src/focus_renderer.cpp.s
+
 src/font.o: src/font.cpp.o
 .PHONY : src/font.o
 
@@ -225,6 +249,222 @@ src/game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/game.cpp.s
 .PHONY : src/game.cpp.s
 
+src/graphics/cel.o: src/graphics/cel.cpp.o
+.PHONY : src/graphics/cel.o
+
+# target to build an object file
+src/graphics/cel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cel.cpp.o
+.PHONY : src/graphics/cel.cpp.o
+
+src/graphics/cel.i: src/graphics/cel.cpp.i
+.PHONY : src/graphics/cel.i
+
+# target to preprocess a source file
+src/graphics/cel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cel.cpp.i
+.PHONY : src/graphics/cel.cpp.i
+
+src/graphics/cel.s: src/graphics/cel.cpp.s
+.PHONY : src/graphics/cel.s
+
+# target to generate assembly for a file
+src/graphics/cel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cel.cpp.s
+.PHONY : src/graphics/cel.cpp.s
+
+src/graphics/cel_animation.o: src/graphics/cel_animation.cpp.o
+.PHONY : src/graphics/cel_animation.o
+
+# target to build an object file
+src/graphics/cel_animation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cel_animation.cpp.o
+.PHONY : src/graphics/cel_animation.cpp.o
+
+src/graphics/cel_animation.i: src/graphics/cel_animation.cpp.i
+.PHONY : src/graphics/cel_animation.i
+
+# target to preprocess a source file
+src/graphics/cel_animation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cel_animation.cpp.i
+.PHONY : src/graphics/cel_animation.cpp.i
+
+src/graphics/cel_animation.s: src/graphics/cel_animation.cpp.s
+.PHONY : src/graphics/cel_animation.s
+
+# target to generate assembly for a file
+src/graphics/cel_animation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cel_animation.cpp.s
+.PHONY : src/graphics/cel_animation.cpp.s
+
+src/graphics/cl2.o: src/graphics/cl2.cpp.o
+.PHONY : src/graphics/cl2.o
+
+# target to build an object file
+src/graphics/cl2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cl2.cpp.o
+.PHONY : src/graphics/cl2.cpp.o
+
+src/graphics/cl2.i: src/graphics/cl2.cpp.i
+.PHONY : src/graphics/cl2.i
+
+# target to preprocess a source file
+src/graphics/cl2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cl2.cpp.i
+.PHONY : src/graphics/cl2.cpp.i
+
+src/graphics/cl2.s: src/graphics/cl2.cpp.s
+.PHONY : src/graphics/cl2.s
+
+# target to generate assembly for a file
+src/graphics/cl2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cl2.cpp.s
+.PHONY : src/graphics/cl2.cpp.s
+
+src/graphics/pal.o: src/graphics/pal.cpp.o
+.PHONY : src/graphics/pal.o
+
+# target to build an object file
+src/graphics/pal.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/pal.cpp.o
+.PHONY : src/graphics/pal.cpp.o
+
+src/graphics/pal.i: src/graphics/pal.cpp.i
+.PHONY : src/graphics/pal.i
+
+# target to preprocess a source file
+src/graphics/pal.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/pal.cpp.i
+.PHONY : src/graphics/pal.cpp.i
+
+src/graphics/pal.s: src/graphics/pal.cpp.s
+.PHONY : src/graphics/pal.s
+
+# target to generate assembly for a file
+src/graphics/pal.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/pal.cpp.s
+.PHONY : src/graphics/pal.cpp.s
+
+src/heroes/hero.o: src/heroes/hero.cpp.o
+.PHONY : src/heroes/hero.o
+
+# target to build an object file
+src/heroes/hero.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/hero.cpp.o
+.PHONY : src/heroes/hero.cpp.o
+
+src/heroes/hero.i: src/heroes/hero.cpp.i
+.PHONY : src/heroes/hero.i
+
+# target to preprocess a source file
+src/heroes/hero.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/hero.cpp.i
+.PHONY : src/heroes/hero.cpp.i
+
+src/heroes/hero.s: src/heroes/hero.cpp.s
+.PHONY : src/heroes/hero.s
+
+# target to generate assembly for a file
+src/heroes/hero.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/hero.cpp.s
+.PHONY : src/heroes/hero.cpp.s
+
+src/heroes/rogue.o: src/heroes/rogue.cpp.o
+.PHONY : src/heroes/rogue.o
+
+# target to build an object file
+src/heroes/rogue.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/rogue.cpp.o
+.PHONY : src/heroes/rogue.cpp.o
+
+src/heroes/rogue.i: src/heroes/rogue.cpp.i
+.PHONY : src/heroes/rogue.i
+
+# target to preprocess a source file
+src/heroes/rogue.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/rogue.cpp.i
+.PHONY : src/heroes/rogue.cpp.i
+
+src/heroes/rogue.s: src/heroes/rogue.cpp.s
+.PHONY : src/heroes/rogue.s
+
+# target to generate assembly for a file
+src/heroes/rogue.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/rogue.cpp.s
+.PHONY : src/heroes/rogue.cpp.s
+
+src/heroes/sorcerer.o: src/heroes/sorcerer.cpp.o
+.PHONY : src/heroes/sorcerer.o
+
+# target to build an object file
+src/heroes/sorcerer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/sorcerer.cpp.o
+.PHONY : src/heroes/sorcerer.cpp.o
+
+src/heroes/sorcerer.i: src/heroes/sorcerer.cpp.i
+.PHONY : src/heroes/sorcerer.i
+
+# target to preprocess a source file
+src/heroes/sorcerer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/sorcerer.cpp.i
+.PHONY : src/heroes/sorcerer.cpp.i
+
+src/heroes/sorcerer.s: src/heroes/sorcerer.cpp.s
+.PHONY : src/heroes/sorcerer.s
+
+# target to generate assembly for a file
+src/heroes/sorcerer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/sorcerer.cpp.s
+.PHONY : src/heroes/sorcerer.cpp.s
+
+src/heroes/warrior.o: src/heroes/warrior.cpp.o
+.PHONY : src/heroes/warrior.o
+
+# target to build an object file
+src/heroes/warrior.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/warrior.cpp.o
+.PHONY : src/heroes/warrior.cpp.o
+
+src/heroes/warrior.i: src/heroes/warrior.cpp.i
+.PHONY : src/heroes/warrior.i
+
+# target to preprocess a source file
+src/heroes/warrior.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/warrior.cpp.i
+.PHONY : src/heroes/warrior.cpp.i
+
+src/heroes/warrior.s: src/heroes/warrior.cpp.s
+.PHONY : src/heroes/warrior.s
+
+# target to generate assembly for a file
+src/heroes/warrior.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/heroes/warrior.cpp.s
+.PHONY : src/heroes/warrior.cpp.s
+
+src/logo_renderer.o: src/logo_renderer.cpp.o
+.PHONY : src/logo_renderer.o
+
+# target to build an object file
+src/logo_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/logo_renderer.cpp.o
+.PHONY : src/logo_renderer.cpp.o
+
+src/logo_renderer.i: src/logo_renderer.cpp.i
+.PHONY : src/logo_renderer.i
+
+# target to preprocess a source file
+src/logo_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/logo_renderer.cpp.i
+.PHONY : src/logo_renderer.cpp.i
+
+src/logo_renderer.s: src/logo_renderer.cpp.s
+.PHONY : src/logo_renderer.s
+
+# target to generate assembly for a file
+src/logo_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/logo_renderer.cpp.s
+.PHONY : src/logo_renderer.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -272,6 +512,30 @@ src/pcx.s: src/pcx.cpp.s
 src/pcx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/pcx.cpp.s
 .PHONY : src/pcx.cpp.s
+
+src/portrait_renderer.o: src/portrait_renderer.cpp.o
+.PHONY : src/portrait_renderer.o
+
+# target to build an object file
+src/portrait_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/portrait_renderer.cpp.o
+.PHONY : src/portrait_renderer.cpp.o
+
+src/portrait_renderer.i: src/portrait_renderer.cpp.i
+.PHONY : src/portrait_renderer.i
+
+# target to preprocess a source file
+src/portrait_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/portrait_renderer.cpp.i
+.PHONY : src/portrait_renderer.cpp.i
+
+src/portrait_renderer.s: src/portrait_renderer.cpp.s
+.PHONY : src/portrait_renderer.s
+
+# target to generate assembly for a file
+src/portrait_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/portrait_renderer.cpp.s
+.PHONY : src/portrait_renderer.cpp.s
 
 src/smacker/libsmackerdec/BitReader.o: src/smacker/libsmackerdec/BitReader.cpp.o
 .PHONY : src/smacker/libsmackerdec/BitReader.o
@@ -600,18 +864,51 @@ help:
 	@echo "... src/audio/sfx.o"
 	@echo "... src/audio/sfx.i"
 	@echo "... src/audio/sfx.s"
+	@echo "... src/focus_renderer.o"
+	@echo "... src/focus_renderer.i"
+	@echo "... src/focus_renderer.s"
 	@echo "... src/font.o"
 	@echo "... src/font.i"
 	@echo "... src/font.s"
 	@echo "... src/game.o"
 	@echo "... src/game.i"
 	@echo "... src/game.s"
+	@echo "... src/graphics/cel.o"
+	@echo "... src/graphics/cel.i"
+	@echo "... src/graphics/cel.s"
+	@echo "... src/graphics/cel_animation.o"
+	@echo "... src/graphics/cel_animation.i"
+	@echo "... src/graphics/cel_animation.s"
+	@echo "... src/graphics/cl2.o"
+	@echo "... src/graphics/cl2.i"
+	@echo "... src/graphics/cl2.s"
+	@echo "... src/graphics/pal.o"
+	@echo "... src/graphics/pal.i"
+	@echo "... src/graphics/pal.s"
+	@echo "... src/heroes/hero.o"
+	@echo "... src/heroes/hero.i"
+	@echo "... src/heroes/hero.s"
+	@echo "... src/heroes/rogue.o"
+	@echo "... src/heroes/rogue.i"
+	@echo "... src/heroes/rogue.s"
+	@echo "... src/heroes/sorcerer.o"
+	@echo "... src/heroes/sorcerer.i"
+	@echo "... src/heroes/sorcerer.s"
+	@echo "... src/heroes/warrior.o"
+	@echo "... src/heroes/warrior.i"
+	@echo "... src/heroes/warrior.s"
+	@echo "... src/logo_renderer.o"
+	@echo "... src/logo_renderer.i"
+	@echo "... src/logo_renderer.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/pcx.o"
 	@echo "... src/pcx.i"
 	@echo "... src/pcx.s"
+	@echo "... src/portrait_renderer.o"
+	@echo "... src/portrait_renderer.i"
+	@echo "... src/portrait_renderer.s"
 	@echo "... src/smacker/libsmackerdec/BitReader.o"
 	@echo "... src/smacker/libsmackerdec/BitReader.i"
 	@echo "... src/smacker/libsmackerdec/BitReader.s"

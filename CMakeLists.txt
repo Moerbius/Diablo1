@@ -16,7 +16,9 @@ add_executable(diablo1
     src/states/main_menu_state.cpp
     src/states/new_hero_state.cpp
     src/states/select_hero_state.cpp
+    src/states/show_savegame_state.cpp
     src/states/playing_state.cpp
+    src/savegame_reader.cpp
     src/heroes/hero.cpp
     src/heroes/warrior.cpp
     src/heroes/rogue.cpp
@@ -32,6 +34,7 @@ add_executable(diablo1
     src/portrait_renderer.cpp
     src/pcx.cpp
     src/graphics/cel.cpp
+    src/graphics/cl2.cpp
     src/graphics/cel_animation.cpp
     src/graphics/pal.cpp
     src/smacker/pklib/explode.c

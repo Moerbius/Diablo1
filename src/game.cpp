@@ -8,6 +8,8 @@
 #include <array>
 #include <chrono>
 #include <cstdio>
+#include <filesystem>
+#include <string>
 
 namespace {
 constexpr int kWindowWidth = 640;
@@ -22,7 +24,26 @@ constexpr int kMainMenuItemCount = 5;
 constexpr int kNewHeroClassCount = 3;
 constexpr int kSinglePlayerMenuIndex = 0;
 constexpr int kReplayIntroMenuIndex = 2;
+constexpr int kShowSavegameMenuIndex = 3;
 constexpr int kExitDiabloMenuIndex = 4;
+
+int CountSingleSavegamesInExecutableDir()
+{
+	std::filesystem::path basePath = std::filesystem::current_path();
+	if (const char* sdlBasePath = SDL_GetBasePath(); sdlBasePath != nullptr) {
+		basePath = sdlBasePath;
+	}
+
+	int count = 0;
+	for (int i = 0; i <= 9; ++i) {
+		const std::filesystem::path savePath = basePath / ("single_" + std::to_string(i) + ".sv");
+		if (std::filesystem::exists(savePath)) {
+			++count;
+		}
+	}
+
+	return count;
+}
 
 const char* GetMainMenuItemName(int index)
 {
@@ -74,6 +95,7 @@ bool Game::Init()
 	titlePresentationActive_ = false;
 	menuMusicPlaying_ = false;
 	resetFrameTimer_ = false;
+	returnToShowSavegameOnNewHeroEscape_ = false;
 	titleWidth_ = 0;
 	titleHeight_ = 0;
 	logoWidth_ = 0;
@@ -94,7 +116,6 @@ bool Game::Init()
 	focus42Height_ = 0;
 	mainMenuSelectionIndex_ = 0;
 	newHeroClassSelectionIndex_ = 0;
-	magballAnimation_.Clear();
 	logoRenderer_.Reset();
 	focusRenderer_.Reset();
 	menuMoveSfxLoaded_ = false;
@@ -136,6 +157,96 @@ bool Game::Init()
 	heroCreationFontLoaded_ = heroCreationFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font30s);
 	heroClassFontLoaded_ = heroClassFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font30g);
 	heroStatsFontLoaded_ = heroStatsFont_.LoadPresetWithFallback(mpq_, Font::Preset::Font16s);
+
+	return true;
+}
+
+bool Game::LoadSharedFrontendAssets()
+{
+	PCXImage titlePcx = PCX::LoadFromMPQ(mpq_, "ui_art\\title.pcx");
+	PCXImage logoPcx = PCX::LoadFromMPQ(mpq_, "ui_art\\logo.pcx");
+	PCXImage mainMenuPcx = PCX::LoadFromMPQ(mpq_, "ui_art\\mainmenu.pcx");
+	PCXImage selheropcx = PCX::LoadFromMPQ(mpq_, "ui_art\\selhero.pcx");
+	PCXImage herosPcx = PCX::LoadFromMPQ(mpq_, "ui_art\\heros.pcx");
+	PCXImage smallPortraitPcx = PCX::LoadFromMPQ(mpq_, "ui_art\\heroport.pcx");
+	PCXImage focusPcx = PCX::LoadFromMPQ(mpq_, "ui_art\\focus.pcx");
+	PCXImage focus16Pcx = PCX::LoadFromMPQ(mpq_, "ui_art\\focus16.pcx");
+	PCXImage focus42Pcx = PCX::LoadFromMPQ(mpq_, "ui_art\\focus42.pcx");
+
+	if (titlePcx.pixels.empty() || logoPcx.pixels.empty() || mainMenuPcx.pixels.empty()) {
+		return false;
+	}
+
+	titleWidth_ = static_cast<int>(titlePcx.width);
+	titleHeight_ = static_cast<int>(titlePcx.height);
+	logoWidth_ = static_cast<int>(logoPcx.width);
+	logoHeight_ = static_cast<int>(logoPcx.height);
+	mainMenuWidth_ = static_cast<int>(mainMenuPcx.width);
+	mainMenuHeight_ = static_cast<int>(mainMenuPcx.height);
+
+	titleImage_ = PCX::ConvertToRGBA32(titlePcx);
+	logoImage_ = PCX::ConvertToRGBA32(logoPcx);
+	mainMenuImage_ = PCX::ConvertToRGBA32(mainMenuPcx);
+
+	if (!selheropcx.pixels.empty() && selheropcx.width > 0 && selheropcx.height > 0) {
+		selheroWidth_ = static_cast<int>(selheropcx.width);
+		selheroHeight_ = static_cast<int>(selheropcx.height);
+		selheroImage_ = PCX::ConvertToRGBA32(selheropcx);
+	} else {
+		selheroWidth_ = 0;
+		selheroHeight_ = 0;
+		selheroImage_.clear();
+	}
+
+	if (!herosPcx.pixels.empty() && herosPcx.width > 0 && herosPcx.height > 0) {
+		herosWidth_ = static_cast<int>(herosPcx.width);
+		herosHeight_ = static_cast<int>(herosPcx.height);
+		herosImage_ = PCX::ConvertToRGBA32(herosPcx);
+	} else {
+		herosWidth_ = 0;
+		herosHeight_ = 0;
+		herosImage_.clear();
+	}
+
+	if (!smallPortraitPcx.pixels.empty() && smallPortraitPcx.width > 0 && smallPortraitPcx.height > 0) {
+		smallPortraitWidth_ = static_cast<int>(smallPortraitPcx.width);
+		smallPortraitHeight_ = static_cast<int>(smallPortraitPcx.height);
+		smallPortraitImage_ = PCX::ConvertToRGBA32(smallPortraitPcx);
+	} else {
+		smallPortraitWidth_ = 0;
+		smallPortraitHeight_ = 0;
+		smallPortraitImage_.clear();
+	}
+
+	if (!focusPcx.pixels.empty() && focusPcx.width > 0 && focusPcx.height > 0) {
+		focusWidth_ = static_cast<int>(focusPcx.width);
+		focusHeight_ = static_cast<int>(focusPcx.height);
+		focusImage_ = PCX::ConvertToRGBA32(focusPcx);
+	} else {
+		focusWidth_ = 0;
+		focusHeight_ = 0;
+		focusImage_.clear();
+	}
+
+	if (!focus16Pcx.pixels.empty() && focus16Pcx.width > 0 && focus16Pcx.height > 0) {
+		focus16Width_ = static_cast<int>(focus16Pcx.width);
+		focus16Height_ = static_cast<int>(focus16Pcx.height);
+		focus16Image_ = PCX::ConvertToRGBA32(focus16Pcx);
+	} else {
+		focus16Width_ = 0;
+		focus16Height_ = 0;
+		focus16Image_.clear();
+	}
+
+	if (!focus42Pcx.pixels.empty() && focus42Pcx.width > 0 && focus42Pcx.height > 0) {
+		focus42Width_ = static_cast<int>(focus42Pcx.width);
+		focus42Height_ = static_cast<int>(focus42Pcx.height);
+		focus42Image_ = PCX::ConvertToRGBA32(focus42Pcx);
+	} else {
+		focus42Width_ = 0;
+		focus42Height_ = 0;
+		focus42Image_.clear();
+	}
 
 	return true;
 }
@@ -291,10 +402,17 @@ bool Game::HandleInput(bool& isRunning)
 					std::fprintf(stdout, "Selected menu item: %s\n", GetMainMenuItemName(mainMenuSelectionIndex_));
 					std::fflush(stdout);
 					if (mainMenuSelectionIndex_ == kSinglePlayerMenuIndex) {
-						EnterState(State::NewHero);
+						if (CountSingleSavegamesInExecutableDir() > 0) {
+							EnterState(State::ShowSavegame);
+						} else {
+							returnToShowSavegameOnNewHeroEscape_ = false;
+							EnterState(State::NewHero);
+						}
 					} else if (mainMenuSelectionIndex_ == kReplayIntroMenuIndex) {
 						introSequenceMode_ = IntroSequenceMode::ReplayDiabloOnly;
 						EnterState(State::Intro);
+					} else if (mainMenuSelectionIndex_ == kShowSavegameMenuIndex) {
+						EnterState(State::ShowSavegame);
 					} else if (mainMenuSelectionIndex_ == kExitDiabloMenuIndex) {
 						EnterState(State::Exiting);
 						isRunning = false;
@@ -305,7 +423,12 @@ bool Game::HandleInput(bool& isRunning)
 					if (menuSelectSfxLoaded_) {
 						menuSelectSfx_.PlayOneShot();
 					}
-					EnterState(State::MainMenu);
+					if (returnToShowSavegameOnNewHeroEscape_) {
+						returnToShowSavegameOnNewHeroEscape_ = false;
+						EnterState(State::ShowSavegame);
+					} else {
+						EnterState(State::MainMenu);
+					}
 				} else if (event.key.key == SDLK_UP) {
 					const int previousIndex = newHeroClassSelectionIndex_;
 					newHeroClassSelectionIndex_ = (newHeroClassSelectionIndex_ + kNewHeroClassCount - 1) % kNewHeroClassCount;
@@ -332,6 +455,40 @@ bool Game::HandleInput(bool& isRunning)
 					}
 					EnterState(State::MainMenu);
 				}
+			} else if (state_ == State::ShowSavegame) {
+				const int slotCount = CountSingleSavegamesInExecutableDir() + 1; // + New Hero
+				const int selectedIndex = std::clamp(newHeroClassSelectionIndex_, 0, std::max(1, slotCount) - 1);
+				const bool isNewHeroEntry = selectedIndex == (std::max(1, slotCount) - 1);
+				if (event.key.key == SDLK_UP) {
+					const int previousIndex = newHeroClassSelectionIndex_;
+					newHeroClassSelectionIndex_ =
+						(newHeroClassSelectionIndex_ + slotCount - 1) % std::max(1, slotCount);
+					if (menuMoveSfxLoaded_ && newHeroClassSelectionIndex_ != previousIndex) {
+						menuMoveSfx_.PlayOneShot();
+					}
+				} else if (event.key.key == SDLK_DOWN) {
+					const int previousIndex = newHeroClassSelectionIndex_;
+					newHeroClassSelectionIndex_ =
+						(newHeroClassSelectionIndex_ + 1) % std::max(1, slotCount);
+					if (menuMoveSfxLoaded_ && newHeroClassSelectionIndex_ != previousIndex) {
+						menuMoveSfx_.PlayOneShot();
+					}
+				} else if (event.key.key == SDLK_RETURN || event.key.key == SDLK_KP_ENTER) {
+					if (menuSelectSfxLoaded_) {
+						menuSelectSfx_.PlayOneShot();
+					}
+					if (isNewHeroEntry) {
+						returnToShowSavegameOnNewHeroEscape_ = true;
+						EnterState(State::NewHero);
+					} else {
+						EnterState(State::MainMenu);
+					}
+				} else if (event.key.key == SDLK_ESCAPE) {
+					if (menuSelectSfxLoaded_) {
+						menuSelectSfx_.PlayOneShot();
+					}
+					EnterState(State::MainMenu);
+				}
 			}
 		}
 	}
@@ -341,7 +498,8 @@ bool Game::HandleInput(bool& isRunning)
 
 void Game::EnterState(State nextState)
 {
-	if (nextState != State::MainMenu && nextState != State::NewHero && nextState != State::SelectHero) {
+	if (nextState != State::MainMenu && nextState != State::NewHero && nextState != State::SelectHero &&
+		nextState != State::ShowSavegame) {
 		menuMusic_.StopMusic();
 		menuMusicPlaying_ = false;
 	}
@@ -362,6 +520,7 @@ void Game::EnterState(State nextState)
 	if (state_ == State::MainMenu) {
 		bool needsMusic = !titlePresentationActive_;
 		titlePresentationActive_ = false;
+		returnToShowSavegameOnNewHeroEscape_ = false;
 		mainMenuSelectionIndex_ = std::clamp(mainMenuSelectionIndex_, 0, kMainMenuItemCount - 1);
 		focusRenderer_.Reset();
 		if (needsMusic && !menuMusicPlaying_) {
@@ -369,10 +528,12 @@ void Game::EnterState(State nextState)
 		}
 	}
 
-	if (state_ == State::NewHero || state_ == State::SelectHero) {
+	if (state_ == State::NewHero || state_ == State::SelectHero || state_ == State::ShowSavegame) {
 		logoRenderer_.Reset();
 		focusRenderer_.Reset();
 		if (state_ == State::NewHero) {
+			newHeroClassSelectionIndex_ = 0;
+		} else if (state_ == State::ShowSavegame) {
 			newHeroClassSelectionIndex_ = 0;
 		}
 	}
@@ -395,6 +556,9 @@ void Game::Update(double dt)
 	case State::SelectHero:
 		UpdateSelectHeroState(dt);
 		return;
+	case State::ShowSavegame:
+		UpdateShowSavegameState(dt);
+		return;
 	case State::Playing:
 	case State::Paused:
 		UpdatePlayingState(dt);
@@ -415,6 +579,8 @@ bool Game::Render()
 		return RenderNewHeroState();
 	case State::SelectHero:
 		return RenderSelectHeroState();
+	case State::ShowSavegame:
+		return RenderShowSavegameState();
 	case State::Playing:
 	case State::Paused:
 	case State::Exiting:

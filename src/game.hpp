@@ -2,13 +2,11 @@
 
 #include "audio/music.hpp"
 #include "font.hpp"
-#include "graphics/cel_animation.hpp"
 #include "focus_renderer.hpp"
 #include "logo_renderer.hpp"
 #include "portrait_renderer.hpp"
 #include "smacker/libsmackker.hpp"
 #include "audio/sfx.hpp"
-#include "graphics/cel.hpp"
 #include "storm/stormlib.hpp"
 #include "video.hpp"
 
@@ -26,6 +24,7 @@ private:
 		MainMenu,
 		NewHero,
 		SelectHero,
+		ShowSavegame,
 		Playing,
 		Paused,
 		Exiting
@@ -57,7 +56,10 @@ private:
 	bool RenderNewHeroState();
 	void UpdateSelectHeroState(double dt);
 	bool RenderSelectHeroState();
+	void UpdateShowSavegameState(double dt);
+	bool RenderShowSavegameState();
 	void UpdatePlayingState(double dt);
+	bool LoadSharedFrontendAssets();
 	bool GetFocusAtlas(
 		FocusAtlas atlas,
 		const std::vector<std::uint32_t>*& image,
@@ -103,6 +105,7 @@ private:
 	bool titlePresentationActive_;
 	bool menuMusicPlaying_;
 	bool resetFrameTimer_;
+	bool returnToShowSavegameOnNewHeroEscape_;
 	int windowWidth_;
 	int windowHeight_;
 	int rectSize_;
@@ -141,5 +144,4 @@ private:
 	int focus42Height_;
 	int mainMenuSelectionIndex_;
 	int newHeroClassSelectionIndex_;
-	CELAnimation magballAnimation_;
 };

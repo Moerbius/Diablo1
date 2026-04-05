@@ -13,7 +13,6 @@ void Game::UpdateMainMenuState(double dt)
 	menuMusic_.Update();
 	logoRenderer_.Update(dt);
 	focusRenderer_.Update(dt);
-	magballAnimation_.Update(dt);
 }
 
 bool Game::RenderMainMenuState()
@@ -49,20 +48,6 @@ bool Game::RenderMainMenuState()
 		return false;
 	}
 
-	if (magballAnimation_.HasFrame()) {
-		const std::vector<std::uint32_t>& magballImage = magballAnimation_.GetCurrentFrame();
-		const int magballWidth = magballAnimation_.GetWidth();
-		const int magballHeight = magballAnimation_.GetHeight();
-		const int scaledMagballWidth = std::max(1, static_cast<int>(magballWidth * uniformScale));
-		const int scaledMagballHeight = std::max(1, static_cast<int>(magballHeight * uniformScale));
-		if (!video_.RenderLogoScaled(
-			magballImage.data(), magballWidth, magballHeight,
-			scaledMagballWidth, scaledMagballHeight,
-			renderX, renderY)) {
-			return false;
-		}
-	}
-
 	// Render scaled-down animated logo over the menu background
 	const double logoScale = 0.7;
 	int scaledLogoHeight = 0;
@@ -87,7 +72,7 @@ bool Game::RenderMainMenuState()
 			"Single Player",
 			"Multi Player",
 			"Replay Intro",
-			"Show Credits",
+			"Show Savegame",
 			"Exit Diablo"
 		};
 
