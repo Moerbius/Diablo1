@@ -35,6 +35,9 @@ add_executable(diablo1
     src/pcx.cpp
     src/graphics/cel.cpp
     src/graphics/cl2.cpp
+    src/graphics/dun.cpp
+    src/graphics/min.cpp
+    src/graphics/til.cpp
     src/graphics/cel_animation.cpp
     src/graphics/pal.cpp
     src/smacker/pklib/explode.c

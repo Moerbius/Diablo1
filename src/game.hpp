@@ -59,6 +59,7 @@ private:
 	void UpdateShowSavegameState(double dt);
 	bool RenderShowSavegameState();
 	void UpdatePlayingState(double dt);
+	bool RenderPlayingState();
 	bool LoadSharedFrontendAssets();
 	bool GetFocusAtlas(
 		FocusAtlas atlas,

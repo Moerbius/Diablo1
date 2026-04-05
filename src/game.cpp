@@ -481,9 +481,16 @@ bool Game::HandleInput(bool& isRunning)
 						returnToShowSavegameOnNewHeroEscape_ = true;
 						EnterState(State::NewHero);
 					} else {
-						EnterState(State::MainMenu);
+						EnterState(State::Playing);
 					}
 				} else if (event.key.key == SDLK_ESCAPE) {
+					if (menuSelectSfxLoaded_) {
+						menuSelectSfx_.PlayOneShot();
+					}
+					EnterState(State::MainMenu);
+				}
+			} else if (state_ == State::Playing || state_ == State::Paused) {
+				if (event.key.key == SDLK_ESCAPE) {
 					if (menuSelectSfxLoaded_) {
 						menuSelectSfx_.PlayOneShot();
 					}
@@ -583,6 +590,7 @@ bool Game::Render()
 		return RenderShowSavegameState();
 	case State::Playing:
 	case State::Paused:
+		return RenderPlayingState();
 	case State::Exiting:
 		return true;
 	}
