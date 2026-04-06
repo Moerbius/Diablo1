@@ -119,6 +119,12 @@ bool Video::RenderPCXImage(const std::uint32_t* imageRgba, int width, int height
 		return false;
 	}
 
+	if (!SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST)) {
+		std::fprintf(stderr, "SDL_SetTextureScaleMode failed: %s\n", SDL_GetError());
+		SDL_DestroyTexture(texture);
+		return false;
+	}
+
 	SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
 	if (!SDL_RenderClear(renderer_)) {
 		std::fprintf(stderr, "SDL_RenderClear failed: %s\n", SDL_GetError());
@@ -175,6 +181,12 @@ bool Video::RenderPCXImageAt(const std::uint32_t* imageRgba, int width, int heig
 
 	if (!SDL_UpdateTexture(texture, nullptr, imageRgba, width * 4)) {
 		std::fprintf(stderr, "SDL_UpdateTexture failed: %s\n", SDL_GetError());
+		SDL_DestroyTexture(texture);
+		return false;
+	}
+
+	if (!SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST)) {
+		std::fprintf(stderr, "SDL_SetTextureScaleMode failed: %s\n", SDL_GetError());
 		SDL_DestroyTexture(texture);
 		return false;
 	}

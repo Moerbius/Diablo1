@@ -321,6 +321,54 @@ src/graphics/cl2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/cl2.cpp.s
 .PHONY : src/graphics/cl2.cpp.s
 
+src/graphics/dun.o: src/graphics/dun.cpp.o
+.PHONY : src/graphics/dun.o
+
+# target to build an object file
+src/graphics/dun.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/dun.cpp.o
+.PHONY : src/graphics/dun.cpp.o
+
+src/graphics/dun.i: src/graphics/dun.cpp.i
+.PHONY : src/graphics/dun.i
+
+# target to preprocess a source file
+src/graphics/dun.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/dun.cpp.i
+.PHONY : src/graphics/dun.cpp.i
+
+src/graphics/dun.s: src/graphics/dun.cpp.s
+.PHONY : src/graphics/dun.s
+
+# target to generate assembly for a file
+src/graphics/dun.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/dun.cpp.s
+.PHONY : src/graphics/dun.cpp.s
+
+src/graphics/min.o: src/graphics/min.cpp.o
+.PHONY : src/graphics/min.o
+
+# target to build an object file
+src/graphics/min.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/min.cpp.o
+.PHONY : src/graphics/min.cpp.o
+
+src/graphics/min.i: src/graphics/min.cpp.i
+.PHONY : src/graphics/min.i
+
+# target to preprocess a source file
+src/graphics/min.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/min.cpp.i
+.PHONY : src/graphics/min.cpp.i
+
+src/graphics/min.s: src/graphics/min.cpp.s
+.PHONY : src/graphics/min.s
+
+# target to generate assembly for a file
+src/graphics/min.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/min.cpp.s
+.PHONY : src/graphics/min.cpp.s
+
 src/graphics/pal.o: src/graphics/pal.cpp.o
 .PHONY : src/graphics/pal.o
 
@@ -344,6 +392,30 @@ src/graphics/pal.s: src/graphics/pal.cpp.s
 src/graphics/pal.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/pal.cpp.s
 .PHONY : src/graphics/pal.cpp.s
+
+src/graphics/til.o: src/graphics/til.cpp.o
+.PHONY : src/graphics/til.o
+
+# target to build an object file
+src/graphics/til.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/til.cpp.o
+.PHONY : src/graphics/til.cpp.o
+
+src/graphics/til.i: src/graphics/til.cpp.i
+.PHONY : src/graphics/til.i
+
+# target to preprocess a source file
+src/graphics/til.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/til.cpp.i
+.PHONY : src/graphics/til.cpp.i
+
+src/graphics/til.s: src/graphics/til.cpp.s
+.PHONY : src/graphics/til.s
+
+# target to generate assembly for a file
+src/graphics/til.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/graphics/til.cpp.s
+.PHONY : src/graphics/til.cpp.s
 
 src/heroes/hero.o: src/heroes/hero.cpp.o
 .PHONY : src/heroes/hero.o
@@ -536,6 +608,30 @@ src/portrait_renderer.s: src/portrait_renderer.cpp.s
 src/portrait_renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/portrait_renderer.cpp.s
 .PHONY : src/portrait_renderer.cpp.s
+
+src/savegame_reader.o: src/savegame_reader.cpp.o
+.PHONY : src/savegame_reader.o
+
+# target to build an object file
+src/savegame_reader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/savegame_reader.cpp.o
+.PHONY : src/savegame_reader.cpp.o
+
+src/savegame_reader.i: src/savegame_reader.cpp.i
+.PHONY : src/savegame_reader.i
+
+# target to preprocess a source file
+src/savegame_reader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/savegame_reader.cpp.i
+.PHONY : src/savegame_reader.cpp.i
+
+src/savegame_reader.s: src/savegame_reader.cpp.s
+.PHONY : src/savegame_reader.s
+
+# target to generate assembly for a file
+src/savegame_reader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/savegame_reader.cpp.s
+.PHONY : src/savegame_reader.cpp.s
 
 src/smacker/libsmackerdec/BitReader.o: src/smacker/libsmackerdec/BitReader.cpp.o
 .PHONY : src/smacker/libsmackerdec/BitReader.o
@@ -801,6 +897,30 @@ src/states/select_hero_state.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/select_hero_state.cpp.s
 .PHONY : src/states/select_hero_state.cpp.s
 
+src/states/show_savegame_state.o: src/states/show_savegame_state.cpp.o
+.PHONY : src/states/show_savegame_state.o
+
+# target to build an object file
+src/states/show_savegame_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/show_savegame_state.cpp.o
+.PHONY : src/states/show_savegame_state.cpp.o
+
+src/states/show_savegame_state.i: src/states/show_savegame_state.cpp.i
+.PHONY : src/states/show_savegame_state.i
+
+# target to preprocess a source file
+src/states/show_savegame_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/show_savegame_state.cpp.i
+.PHONY : src/states/show_savegame_state.cpp.i
+
+src/states/show_savegame_state.s: src/states/show_savegame_state.cpp.s
+.PHONY : src/states/show_savegame_state.s
+
+# target to generate assembly for a file
+src/states/show_savegame_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/diablo1.dir/build.make CMakeFiles/diablo1.dir/src/states/show_savegame_state.cpp.s
+.PHONY : src/states/show_savegame_state.cpp.s
+
 src/storm/stormlib.o: src/storm/stormlib.cpp.o
 .PHONY : src/storm/stormlib.o
 
@@ -882,9 +1002,18 @@ help:
 	@echo "... src/graphics/cl2.o"
 	@echo "... src/graphics/cl2.i"
 	@echo "... src/graphics/cl2.s"
+	@echo "... src/graphics/dun.o"
+	@echo "... src/graphics/dun.i"
+	@echo "... src/graphics/dun.s"
+	@echo "... src/graphics/min.o"
+	@echo "... src/graphics/min.i"
+	@echo "... src/graphics/min.s"
 	@echo "... src/graphics/pal.o"
 	@echo "... src/graphics/pal.i"
 	@echo "... src/graphics/pal.s"
+	@echo "... src/graphics/til.o"
+	@echo "... src/graphics/til.i"
+	@echo "... src/graphics/til.s"
 	@echo "... src/heroes/hero.o"
 	@echo "... src/heroes/hero.i"
 	@echo "... src/heroes/hero.s"
@@ -909,6 +1038,9 @@ help:
 	@echo "... src/portrait_renderer.o"
 	@echo "... src/portrait_renderer.i"
 	@echo "... src/portrait_renderer.s"
+	@echo "... src/savegame_reader.o"
+	@echo "... src/savegame_reader.i"
+	@echo "... src/savegame_reader.s"
 	@echo "... src/smacker/libsmackerdec/BitReader.o"
 	@echo "... src/smacker/libsmackerdec/BitReader.i"
 	@echo "... src/smacker/libsmackerdec/BitReader.s"
@@ -942,6 +1074,9 @@ help:
 	@echo "... src/states/select_hero_state.o"
 	@echo "... src/states/select_hero_state.i"
 	@echo "... src/states/select_hero_state.s"
+	@echo "... src/states/show_savegame_state.o"
+	@echo "... src/states/show_savegame_state.i"
+	@echo "... src/states/show_savegame_state.s"
 	@echo "... src/storm/stormlib.o"
 	@echo "... src/storm/stormlib.i"
 	@echo "... src/storm/stormlib.s"
