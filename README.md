@@ -1,5 +1,9 @@
 # Diablo1
 
+SDL3 Diablo1 implementation
+
+WORK IN PROGRESS
+
 ## Build
 
 ### Make
