@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build (Linux, Makefile)",
+      "type": "shell",
+      "command": "make",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "linux": {
+        "command": "make"
+      }
+    },
+    {
+      "label": "Build (Windows, Makefile)",
+      "type": "shell",
+      "command": "mingw32-make",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "windows": {
+        "command": "mingw32-make"
+      }
+    }
+  ]
+}
